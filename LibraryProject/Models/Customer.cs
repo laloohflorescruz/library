@@ -15,7 +15,7 @@ public class Customer
     [Display(Name = "Is a student?")]
     public bool Student { get; set; }
 
-     public string? Email { get; set; }
+    public string? Email { get; set; }
     public string? Phone { get; set; }
     public string? Address { get; set; }
 
