@@ -1,4 +1,6 @@
-﻿namespace LibraryManagement.ViewModel
+﻿using LibraryManagement.Models;
+
+namespace LibraryManagement.ViewModel
 {
     public class BookViewModel
     {
@@ -8,6 +10,8 @@
         public DateOnly PublicationDate { get; set; }
         public string? Genre { get; set; }
         public string? BranchName { get; set; }
+
+        public string? AutorName { get; set; }
 
     }
 }
