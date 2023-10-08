@@ -1,4 +1,10 @@
-﻿@model LibraryManagement.Models.Author
+﻿@model LibraryManagement.ViewModel.AuthorViewModel
 
 <h1>Author: @Model.AuthorId</h1>
-<p>Branch: @Model.FirstName</p>
+<p>Author Last Name: @Model.LastName</p>
+<p>Author First Name: @Model.FirstName</p>
+
+<p>Author Full Name: @string.Concat(Model.LastName, ", ", Model.FirstName)</p>
+
+<p>Author BirthPlace: @Model.BirthPlace</p>
+<p>Has this author won any Nobel Prize?: @Model.NobelPrize</p>

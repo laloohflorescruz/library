@@ -1,5 +1,20 @@
-﻿<!-- Details.cshtml in LibraryManagement/Views/Book folder-->
-@model LibraryManagement.Models.Customer
+﻿@model LibraryManagement.ViewModel.CustomerViewModel
 
 <p>Customer Id: @Model.CustomerId</p>
+<p>Customer Full Name: @Model.LastName + ", " + @Model.FirstName</p>
+
+<p>Customer Last Name: @Model.LastName</p>
+
+<p>Customer First Name: @Model.FirstName</p>
+
+<p>Customer Brithday: @Model.Brithday</p>
+
 <p>Customer Name: @Model.FirstName</p>
+
+<p>Is a Student: @Model.Student</p>
+
+<p>Customer Email: @Model.Email</p>
+
+<p>Customer Address: @Model.Address</p>
+
+<p>Customer Membership Since: @Model.MembershipSince</p>
