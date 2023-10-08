@@ -2,16 +2,24 @@ namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
 public class Customer
 {
-     [Key]
+    [Key]
     public int CustomerId { get; set; }
-    public string LastName { get; set; }
-    public string FirtName { get; set; }
-    public DateOnly Brithday { get; set; }
-    public bool Student { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
-    public string Address { get; set; }
-    public DateOnly MembershipSince { get; set; }
 
+    [Display(Name = "Last Name")]
+    public string? LastName { get; set; }
+
+    [Display(Name = "First Name")]
+    public string? FirstName { get; set; }
+    public DateOnly Brithday { get; set; }
+
+    [Display(Name = "Is a student?")]
+    public bool Student { get; set; }
+
+     public string? Email { get; set; }
+    public string? Phone { get; set; }
+    public string? Address { get; set; }
+
+    [Display(Name = "Membership Since")]
+    public DateOnly MembershipSince { get; set; }
 
 }
