@@ -1,0 +1,28 @@
+@model LibraryManagement.Models.Author
+
+<h2>Create Author</h2>
+
+<form asp-controller="Author" asp-action="Create" method="post">
+     
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BirthPlace"></label>
+        <input asp-for="BirthPlace" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NobelPrize"></label>
+        <select asp-for="NobelPrize" class="form-control">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="reset" class="btn btn-warning">Clear</button>
+</form>

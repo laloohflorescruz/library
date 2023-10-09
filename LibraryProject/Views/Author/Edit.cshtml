@@ -1,0 +1,36 @@
+@model LibraryManagement.Models.Author
+
+<h2>Edit Author</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="AuthorId" />
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BirthPlace"></label>
+        <input asp-for="BirthPlace" class="form-control" />
+        <span asp-validation-for="BirthPlace" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NobelPrize"></label>
+        <input asp-for="NobelPrize" class="form-check-input" />
+        <span asp-validation-for="NobelPrize" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
