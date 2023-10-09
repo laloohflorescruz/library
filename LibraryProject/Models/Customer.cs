@@ -1,6 +1,6 @@
 namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
-public class Customer
+public class Customer : Audit
 {
     [Key]
     public int CustomerId { get; set; }

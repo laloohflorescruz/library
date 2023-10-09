@@ -1,6 +1,6 @@
 namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
-public class Author
+public class Author : Audit
 {
     [Key]
 
@@ -21,7 +21,5 @@ public class Author
     [Display(Name = "Has this author won any Nobel Prize")]
     public bool NobelPrize { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 
 }

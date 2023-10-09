@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
-public class LibraryBranch
+public class LibraryBranch : Audit
 {
   [Key]
   public int LibraryBranchId { get; set; }

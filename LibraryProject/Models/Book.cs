@@ -2,7 +2,7 @@ namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Book
+public class Book : Audit
 {
     [Key]
     public int BookId { get; set; }
@@ -17,6 +17,6 @@ public class Book
     [ForeignKey("Library")] //Foreing Key for LibraryBranch
     public int LibraryBranchId { get; set; }
 
-    public required LibraryBranch Library { get; set; } //Relation btw Library - Book
-    public required Author author { get; set; } //Relation btw Autor - Book
+    //public required LibraryBranch Library { get; set; } //Relation btw Library - Book
+   // public required Author author { get; set; } //Relation btw Autor - Book
 }

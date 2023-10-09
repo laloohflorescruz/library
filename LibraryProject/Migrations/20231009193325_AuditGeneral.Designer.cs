@@ -3,6 +3,7 @@ using System;
 using BlogApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231009193325_AuditGeneral")]
+    partial class AuditGeneral
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -80,6 +83,10 @@ namespace LibraryProject.Migrations
 
                     b.HasKey("BookId");
 
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("LibraryBranchId");
+
                     b.ToTable("Book");
                 });
 
@@ -93,9 +100,6 @@ namespace LibraryProject.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("Brithday")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -115,9 +119,6 @@ namespace LibraryProject.Migrations
 
                     b.Property<bool>("Student")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("CustomerId");
 
@@ -139,9 +140,6 @@ namespace LibraryProject.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
@@ -152,15 +150,31 @@ namespace LibraryProject.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ZipCode")
                         .HasColumnType("TEXT");
 
                     b.HasKey("LibraryBranchId");
 
                     b.ToTable("LibraryBranch");
+                });
+
+            modelBuilder.Entity("LibraryManagement.Models.Book", b =>
+                {
+                    b.HasOne("LibraryManagement.Models.Author", "author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryManagement.Models.LibraryBranch", "Library")
+                        .WithMany()
+                        .HasForeignKey("LibraryBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Library");
+
+                    b.Navigation("author");
                 });
 #pragma warning restore 612, 618
         }

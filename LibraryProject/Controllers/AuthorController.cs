@@ -15,8 +15,8 @@ public class AuthorController : Controller
     }
     public IActionResult Index()
     {
-        var posts = _dbContext.Author.ToList();
-        return View(posts);
+        var vm = _dbContext.Author.ToList();
+        return View(vm);
     }
 
     public IActionResult Create()
