@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using LibraryManagement.Models;
 
 namespace LibraryManagement.ViewModel
 {
-    public class CustomerViewModel
+    public class CustomerViewModel  : Audit
     {
         public int CustomerId { get; set; }
         [Display(Name = "Last Name")]

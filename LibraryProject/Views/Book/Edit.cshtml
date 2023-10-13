@@ -6,49 +6,52 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="BookId" />
+    <div class="row">
+        <div class="col">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+        <div class="col">
+            <label asp-for="ISBN"></label>
+            <input asp-for="ISBN" class="form-control" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="ISBN"></label>
-        <input asp-for="ISBN" class="form-control" />
-        <span asp-validation-for="ISBN" class="text-danger"></span>
+    <div class="row">
+        <div class="col">
+            <label asp-for="PublicationDate"></label>
+            <input asp-for="PublicationDate" class="form-control" />
+            <span asp-validation-for="PublicationDate" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label asp-for="Genre"></label>
+            <input asp-for="Genre" class="form-control" />
+            <span asp-validation-for="Genre" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="PublicationDate"></label>
-        <input asp-for="PublicationDate" class="form-control" />
-        <span asp-validation-for="PublicationDate" class="text-danger"></span>
+    <div class="row">
+        <div class="col">
+            <label asp-for="AuthorId"></label>
+            <input asp-for="AuthorId" class="form-control" />
+            <span asp-validation-for="AuthorId" class="text-danger"></span>
+        </div>
+
+        <div class="col">
+            <label asp-for="LibraryBranchId"></label>
+            <input asp-for="LibraryBranchId" class="form-control" />
+            <span asp-validation-for="LibraryBranchId" class="text-danger"></span>
+        </div>
     </div>
 
-
-  <div class="form-group">
-        <label asp-for="Genre"></label>
-        <input asp-for="Genre" class="form-control" />
-        <span asp-validation-for="Genre" class="text-danger"></span>
+    <br>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-warning">Clear</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 
-
-
-      <div class="form-group">
-        <label asp-for="AuthorId"></label>
-        <input asp-for="AuthorId" class="form-control" />
-        <span asp-validation-for="AuthorId" class="text-danger"></span>
-    </div>
-
-
-      <div class="form-group">
-        <label asp-for="LibraryBranchId"></label>
-        <input asp-for="LibraryBranchId" class="form-control" />
-        <span asp-validation-for="LibraryBranchId" class="text-danger"></span>
-    </div>
-
-     
-
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>

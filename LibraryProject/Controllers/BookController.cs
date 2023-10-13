@@ -81,13 +81,13 @@ public class BookController : Controller
             return NotFound();
         }
 
-        var author = await _dbContext.Book
-            .FirstOrDefaultAsync(m => m.AuthorId == id);
-        if (author == null)
+        var book = await _dbContext.Book
+            .FirstOrDefaultAsync(m => m.BookId == id);
+        if (book == null)
         {
             return NotFound();
         }
 
-        return View(author);
+        return View(book);
     }
 }

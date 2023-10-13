@@ -7,53 +7,64 @@
 
     <input type="hidden" asp-for="LibraryBranchId" />
 
-    <div class="form-group">
+ <div class="row">
+        <div class="col">
         <label asp-for="BranchName"></label>
         <input asp-for="BranchName" class="form-control" />
         <span asp-validation-for="BranchName" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="col">
         <label asp-for="ZipCode"></label>
         <input asp-for="ZipCode" class="form-control" />
         <span asp-validation-for="ZipCode" class="text-danger"></span>
     </div>
+ </div>
 
-    <div class="form-group">
+    <div class="row">
+        <div class="col">
         <label asp-for="Address"></label>
         <input asp-for="Address" class="form-control" />
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
 
 
-    <div class="form-group">
+<div class="col">
         <label asp-for="Phone"></label>
         <input asp-for="Phone" class="form-control" />
         <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
+    </div>
 
 
-    <div class="form-group">
+  <div class="row">
+        <div class="col"> 
         <label asp-for="City"></label>
         <input asp-for="City" class="form-control" />
         <span asp-validation-for="City" class="text-danger"></span>
     </div>
 
 
-    <div class="form-group">
+   <div class="col"> 
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+  </div>
 
 
-        <div class="form-group">
+       <div class="row">
+        <div class="col"> 
         <label asp-for="OpeningHours"></label>
         <input asp-for="OpeningHours" class="form-control" />
         <span asp-validation-for="OpeningHours" class="text-danger"></span>
     </div>
-   
+       </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+   <br>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-warning">Clear</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
 </form>

@@ -3,7 +3,7 @@
 <h2>Authors</h2>
 <a href="@Url.Action("Create", "Author")" class="btn btn-primary">Create Author</a>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Id</th>
@@ -25,7 +25,8 @@
                 <td>@author.NobelPrize</td>
                 <td>
                     <a href="@Url.Action("Edit", "Author", new { id = author.AuthorId })" class="btn btn-warning">Edit</a>
-                    <a href="@Url.Action("Details", "Author", new { id = author.AuthorId })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Details", "Author", new { id = author.AuthorId })"
+                        class="btn btn-info">Details</a>
                 </td>
             </tr>
         }

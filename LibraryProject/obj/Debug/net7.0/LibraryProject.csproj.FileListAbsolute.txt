@@ -65,3 +65,5 @@ C:\holis\MSACS\adv\libraryProject\LibraryProject\obj\Debug\net7.0\refint\Library
 C:\holis\MSACS\adv\libraryProject\LibraryProject\obj\Debug\net7.0\LibraryProject.pdb
 C:\holis\MSACS\adv\libraryProject\LibraryProject\obj\Debug\net7.0\LibraryProject.genruntimeconfig.cache
 C:\holis\MSACS\adv\libraryProject\LibraryProject\obj\Debug\net7.0\ref\LibraryProject.dll
+C:\holis\MSACS\adv\libraryProject\LibraryProject\bin\Debug\net7.0\package-lock.json
+C:\holis\MSACS\adv\libraryProject\LibraryProject\bin\Debug\net7.0\package.json
