@@ -12,6 +12,13 @@ namespace LibraryManagement.ViewModel
         public string? BranchName { get; set; }
 
         public string? AutorName { get; set; }
+        
+        public bool AvailableToBeTaken{ get; set; }
+
+        public string CanBeTaken() {
+            return AvailableToBeTaken? "Aviable" : "Not Aviable";
+        }
+
 
     }
 }

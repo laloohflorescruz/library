@@ -3,16 +3,17 @@
 <h2>Create Author</h2>
 
 <form asp-controller="Author" asp-action="Create" method="post">
-
-
     <div class="row">
         <div class="col">
             <label asp-for="LastName"></label>
             <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+
         </div>
         <div class="col">
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
 

@@ -6,71 +6,69 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="CustomerId" />
-    
-    <div class="row">
-        <div class="col">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-
-        <div class="col">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-    </div>
 
     <div class="row">
         <div class="col">
-        <label asp-for="Brithday"></label>
-        <input asp-for="Brithday" class="form-control" />
-        <span asp-validation-for="Brithday" class="text-danger"></span>
-    </div>
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
 
-
-    <div class="col">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    </div>
-
-
-
-       <div class="row">
         <div class="col">
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Brithday"></label>
+            <input asp-for="Brithday" class="form-control" />
+            <span asp-validation-for="Brithday" class="text-danger"></span>
+        </div>
 
 
         <div class="col">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
     </div>
 
-    
-       <div class="row">
+
+
+    <div class="row">
         <div class="col">
-        <label asp-for="Student"></label>
-        <input asp-for="Student" class="form-check-input" />
-        <span asp-validation-for="Student" class="text-danger"></span>
-    </div>
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
 
 
         <div class="col">
-        <label asp-for="MembershipSince"></label>
-        <input asp-for="MembershipSince" class="form-control" />
-        <span asp-validation-for="MembershipSince" class="text-danger"></span>
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
     </div>
-       </div>
-     
-     
-  <br>
+
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="Student"></label>
+            <input asp-for="Student" class="form-check-input" />
+        </div>
+
+
+        <div class="col">
+            <label asp-for="MembershipSince"></label>
+            <input asp-for="MembershipSince" class="form-control" />
+            <span asp-validation-for="MembershipSince" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="reset" class="btn btn-warning">Clear</button>
