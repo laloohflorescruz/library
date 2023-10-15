@@ -10,7 +10,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>ISBN</th>
-            <th>PublicationDate</th>
+            <th>Publication Date</th>
             <th>Genre</th>
             <th>Actions</th> <!-- Added column for actions -->
         </tr>
@@ -22,7 +22,7 @@
                 <td>@book.BookId</td>
                 <td>@book.Title</td>
                 <td>@book.ISBN</td>
-                <td>@book.PublicationDate</td>
+                <td>@book.PublicationDate.ToString("dd/MM/yyyy")</td>               
                 <td>@book.Genre</td>
                 <td>
                     <a href="@Url.Action("Edit", "Book", new { id = book.BookId })" class="btn btn-warning">Edit</a>

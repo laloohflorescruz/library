@@ -8,7 +8,6 @@
             <label asp-for="LastName"></label>
             <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
-
         </div>
         <div class="col">
             <label asp-for="FirstName"></label>
@@ -17,17 +16,17 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col">
             <label asp-for="BirthPlace"></label>
             <input asp-for="BirthPlace" class="form-control" />
+            <span asp-validation-for="BirthPlace" class="text-danger"></span>
         </div>
         <div class="col">
             <label asp-for="NobelPrize"></label>
             <select asp-for="NobelPrize" class="form-control">
-                <option value="1">Yes</option>
-                <option value="0">No</option>
+                <option value="True">Yes</option>
+                <option value="False">No</option>
             </select>
         </div>
     </div>

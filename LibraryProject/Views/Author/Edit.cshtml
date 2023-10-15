@@ -29,17 +29,18 @@
             <span asp-validation-for="BirthPlace" class="text-danger"></span>
         </div>
 
-        <div class="col">
+         <div class="col">
             <label asp-for="NobelPrize"></label>
-            <input asp-for="NobelPrize" class="form-check-input" />
-            <span asp-validation-for="NobelPrize" class="text-danger"></span>
+            <select asp-for="NobelPrize" class="form-control">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+            </select>
         </div>
     </div>
 
     <br>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Save</button>
-        <button type="reset" class="btn btn-warning">Clear</button>
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </form>

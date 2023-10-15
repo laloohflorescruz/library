@@ -6,7 +6,7 @@ public class LibraryBranch : Audit
   public int LibraryBranchId { get; set; }
 
   [Required(ErrorMessage = "Please inset a valid name")]
-  [Display(Name = "Branch hName")]
+  [Display(Name = "Branch Name")]
   [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
   public string? BranchName { get; set; }
 
@@ -25,7 +25,7 @@ public class LibraryBranch : Audit
 
   [Required(ErrorMessage = "Please inset a phone number")]
   [Display(Name = "Phone")]
-  [StringLength(9, ErrorMessage = "Zipcode length can't be more than 9.")]
+  [StringLength(15, ErrorMessage = "Phone length can't be more than 15.")]
   public string? Phone { get; set; }
 
   [Required(ErrorMessage = "Please inset a City")]

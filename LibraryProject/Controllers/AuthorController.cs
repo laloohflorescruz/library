@@ -1,5 +1,6 @@
 using BlogApp;
 using LibraryManagement.Models;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,11 +28,20 @@ public class AuthorController : Controller
     [HttpPost]
     public IActionResult Create(Author vm)
     {
-        vm.CreatedAt = DateTime.Now;
-        _dbContext.Author.Add(vm);
-        _dbContext.SaveChanges();
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid)
+        {
+            // If the model is not valid, return a BadRequest response with error messages with a dictionary
+            return BadRequest(ModelState.GetErrorMessages());
+        }
+        else
+        {
+            vm.CreatedAt = DateTime.Now;
+            _dbContext.Author.Add(vm);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
+
 
     // GET: Author/Edit/5
     public async Task<IActionResult> Edit(int? id)
@@ -57,8 +67,11 @@ public class AuthorController : Controller
         {
             return NotFound();
         }
-
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
+        {
+             return BadRequest(ModelState.GetErrorMessages());
+        }
+        else
         {
             author.UpdatedAt = DateTime.Now;
             _dbContext.Update(author);
@@ -66,7 +79,6 @@ public class AuthorController : Controller
 
             return RedirectToAction(nameof(Index));
         }
-        return View(author);
     }
 
     // GET: Author/Details/5

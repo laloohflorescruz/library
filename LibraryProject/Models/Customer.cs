@@ -16,8 +16,9 @@ public class Customer : Audit
     public string? FirstName { get; set; }
 
     [Required(ErrorMessage = "Please inset a valid birthday")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
     [DataType(DataType.Date)]
-    public DateOnly Brithday { get; set; }
+    public DateTime Brithday { get; set; }
 
     [Display(Name = "Is a student?")]
     public bool Student { get; set; }
@@ -31,7 +32,7 @@ public class Customer : Audit
     [Required(ErrorMessage = "Please inset phone")]
     [Display(Name = "Phone Number")]
     [DataType(DataType.PhoneNumber)]
-    [StringLength(9, ErrorMessage = "Name length can't be more than 9.")]
+    [StringLength(15, ErrorMessage = "Name length can't be more than 15.")]
     public string? Phone { get; set; }
 
 
@@ -41,8 +42,10 @@ public class Customer : Audit
     public string? Address { get; set; }
 
     [Display(Name = "Membership Since")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+
     [Required(ErrorMessage = "Please inset a valid date")]
     [DataType(DataType.Date)]
-    public DateOnly MembershipSince { get; set; }
+    public DateTime MembershipSince { get; set; }
 
 }

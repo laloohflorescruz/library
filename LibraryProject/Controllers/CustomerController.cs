@@ -1,5 +1,6 @@
 using BlogApp;
 using LibraryManagement.Models;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,10 +30,18 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public IActionResult Create(Customer vm)
         {
-            vm.CreatedAt = DateTime.Now;
-            _dbContext.Customer.Add(vm);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                // If the model is not valid, return a BadRequest response with error messages with a dictionary
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            else
+            {
+                vm.CreatedAt = DateTime.Now;
+                _dbContext.Customer.Add(vm);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: Customer/Edit/5
@@ -61,7 +70,11 @@ namespace LibraryManagement.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            else
             {
                 customer.UpdatedAt = DateTime.Now;
                 _dbContext.Update(customer);
@@ -69,7 +82,6 @@ namespace LibraryManagement.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
         }
 
         // GET: Customer/Details/5

@@ -9,8 +9,8 @@
             <label asp-for="LastName"></label>
             <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
-
         </div>
+
         <div class="col">
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" class="form-control" />
@@ -23,7 +23,6 @@
             <label asp-for="Brithday"></label>
             <input asp-for="Brithday" class="form-control" />
             <span asp-validation-for="Brithday" class="text-danger"></span>
-
         </div>
 
         <div class="col">
@@ -44,7 +43,6 @@
             <label asp-for="Address"></label>
             <input asp-for="Address" class="form-control" />
             <span asp-validation-for="Address" class="text-danger"></span>
-
         </div>
     </div>
 
@@ -57,10 +55,10 @@
         </div>
 
         <div class="col">
-            <label asp-for="Student"></label>
-            <select asp-for="Student" class="form-control">
-                <option value="1">Yes</option>
-                <option value="0">No</option>
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Student?</label>
+            <select asp-for="Student" class="custom-select mr-sm-2">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
             </select>
         </div>
     </div>

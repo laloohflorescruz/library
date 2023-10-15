@@ -30,10 +30,19 @@ namespace LibraryProject.Controllers
         [HttpPost]
         public IActionResult Create(LibraryBranch vm)
         {
-            vm.CreatedAt = DateTime.Now;
-            _dbContext.LibraryBranch.Add(vm);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (!ModelState.IsValid)
+            {
+                // If the model is not valid, return a BadRequest response with error messages with a dictionary
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            else
+            {
+                vm.CreatedAt = DateTime.Now;
+                _dbContext.LibraryBranch.Add(vm);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         // GET: LibraryBranch/Edit/5
@@ -62,7 +71,15 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            else
             {
                 library.UpdatedAt = DateTime.Now;
                 _dbContext.Update(library);
@@ -70,7 +87,6 @@ namespace LibraryProject.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(library);
         }
 
         // GET: LibraryBranch/Details/5
