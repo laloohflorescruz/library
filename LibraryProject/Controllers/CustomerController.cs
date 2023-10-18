@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
@@ -30,16 +28,15 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Customer vm)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetErrorMessages());
+
+                vm.CreatedAt = DateTime.Now;
+                _repo.Add(vm);
+                await _repo.SaveAsync();
+                return RedirectToAction("Index");
             }
-
-            vm.CreatedAt = DateTime.Now;
-            _repo.Add(vm);
-            await _repo.SaveAsync();
-
-            return RedirectToAction("Index");
+            return View(vm);
         }
 
         public async Task<IActionResult> Edit(int? id)

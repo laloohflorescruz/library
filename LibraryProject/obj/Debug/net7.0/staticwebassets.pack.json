@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\img\\librarybg.jpg",
+      "PackagePath": "staticwebassets\\img\\librarybg.jpg"
+    },
+    {
+      "Id": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\img\\librarybg02.png",
+      "PackagePath": "staticwebassets\\img\\librarybg02.png"
+    },
+    {
       "Id": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

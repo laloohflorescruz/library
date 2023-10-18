@@ -18,7 +18,7 @@ public class Customer : Audit
     [Required(ErrorMessage = "Please inset a valid birthday")]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
     [DataType(DataType.Date)]
-    public DateTime Brithday { get; set; }
+    public DateTime Birthday { get; set; }
 
     [Display(Name = "Is a student?")]
     public bool Student { get; set; }

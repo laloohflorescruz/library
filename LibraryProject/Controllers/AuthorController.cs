@@ -8,15 +8,15 @@ namespace LibraryProject.Controllers;
 
 public class AuthorController : Controller
 {
-    private readonly IGenericRepository<Author> _authorRep;
-    public AuthorController(IGenericRepository<Author> authorRep)
+    private readonly IGenericRepository<Author> _authorRepository;
+    public AuthorController(IGenericRepository<Author> authorRepository)
     {
-        _authorRep = authorRep;
+        _authorRepository = authorRepository;
     }
 
     public IActionResult Index()
     {
-        var vm = _authorRep.GetAllAsync().Result;
+        var vm = _authorRepository.GetAllAsync().Result;
         return View(vm);
     }
 
@@ -28,18 +28,16 @@ public class AuthorController : Controller
     [HttpPost]
     public IActionResult Create(Author vm)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState.GetErrorMessages());
-        }
-        else
+        if (ModelState.IsValid)
         {
             vm.CreatedAt = DateTime.Now;
-            _authorRep.Add(vm);
-            _authorRep.SaveAsync();
+            _authorRepository.Add(vm);
+            _authorRepository.SaveAsync();
 
             return RedirectToAction("Index");
         }
+        return View(vm);
+
     }
 
 
@@ -51,7 +49,7 @@ public class AuthorController : Controller
             return NotFound();
         }
 
-        var author = _authorRep.GetByIdAsync(id.Value);
+        var author = _authorRepository.GetByIdAsync(id.Value).Result; // Note: Avoid using Result in production code, consider using async/await all the way.
         if (author == null)
         {
             return NotFound();
@@ -74,8 +72,8 @@ public class AuthorController : Controller
         }
 
         author.UpdatedAt = DateTime.Now;
-        _authorRep.Update(author);
-        _authorRep.SaveAsync();
+        _authorRepository.Update(author);
+        _authorRepository.SaveAsync().Wait(); // Note: Avoid using Wait in production code, consider using async/await all the way.
 
         return RedirectToAction(nameof(Index));
     }
@@ -88,7 +86,8 @@ public class AuthorController : Controller
             return NotFound();
         }
 
-        var author = _authorRep.GetByIdAsync(id.Value);
+        var author = _authorRepository.GetByIdAsync(id.Value).Result; // Note: Avoid using Result in production code, consider using async/await all the way.
+
         if (author == null)
         {
             return NotFound();

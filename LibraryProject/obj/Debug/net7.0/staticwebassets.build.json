@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e0Luq7yiflwB36lU+rhkQdt3NgLIZVsyRViCdRUk+ys=",
+  "Hash": "gz87kebvF/qyVq/SVWmZLIzwuKpgboBYDz+posUZf+w=",
   "Source": "LibraryProject",
   "BasePath": "_content/LibraryProject",
   "Mode": "Default",
@@ -83,6 +83,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\img\\librarybg.jpg",
+      "SourceId": "LibraryProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\",
+      "BasePath": "_content/LibraryProject",
+      "RelativePath": "img/librarybg.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\librarybg.jpg"
+    },
+    {
+      "Identity": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\img\\librarybg02.png",
+      "SourceId": "LibraryProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\",
+      "BasePath": "_content/LibraryProject",
+      "RelativePath": "img/librarybg02.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\librarybg02.png"
     },
     {
       "Identity": "C:\\holis\\MSACS\\adv\\libraryProject\\LibraryProject\\wwwroot\\js\\site.js",

@@ -28,16 +28,15 @@ namespace LibraryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(LibraryBranch vm)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetErrorMessages());
+                vm.CreatedAt = DateTime.Now;
+                _libRep.Add(vm);
+                await _libRep.SaveAsync();
+
+                return RedirectToAction("Index");
             }
-
-            vm.CreatedAt = DateTime.Now;
-            _libRep.Add(vm);
-            await _libRep.SaveAsync();
-
-            return RedirectToAction("Index");
+            return View(vm);
         }
 
         public async Task<IActionResult> Edit(int? id)
