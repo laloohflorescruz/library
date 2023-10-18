@@ -1,10 +1,18 @@
-using BlogApp;
+using LibraryManagement.Models;
+using LibraryManagement.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<LibraryManagement.AppDbContext>();
+
+//Services here!
+builder.Services.AddScoped<IGenericRepository<Author>, GenericRepository<Author>>();
+builder.Services.AddScoped<IGenericRepository<Customer>, GenericRepository<Customer>>();
+builder.Services.AddScoped<IGenericRepository<LibraryBranch>, GenericRepository<LibraryBranch>>();
+builder.Services.AddScoped<IGenericRepository<Book>, GenericRepository<Book>>();
+
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LibraryManagement.ViewModel

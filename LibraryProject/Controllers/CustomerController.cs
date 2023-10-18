@@ -1,24 +1,24 @@
-using BlogApp;
+using System;
+using System.Threading.Tasks;
 using LibraryManagement.Models;
+using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace LibraryManagement.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IGenericRepository<Customer> _repo;
 
-        public CustomerController(AppDbContext dbContext)
+        public CustomerController(IGenericRepository<Customer> repo)
         {
-            _dbContext = dbContext;
+            _repo = repo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = _dbContext.Customer.ToList();
+            var vm = await _repo.GetAllAsync();
             return View(vm);
         }
 
@@ -28,23 +28,20 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Customer vm)
+        public async Task<IActionResult> Create(Customer vm)
         {
             if (!ModelState.IsValid)
             {
-                // If the model is not valid, return a BadRequest response with error messages with a dictionary
                 return BadRequest(ModelState.GetErrorMessages());
             }
-            else
-            {
-                vm.CreatedAt = DateTime.Now;
-                _dbContext.Customer.Add(vm);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
+
+            vm.CreatedAt = DateTime.Now;
+            _repo.Add(vm);
+            await _repo.SaveAsync();
+
+            return RedirectToAction("Index");
         }
 
-        // GET: Customer/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -52,16 +49,15 @@ namespace LibraryManagement.Controllers
                 return NotFound();
             }
 
-            var customer = await _dbContext.Customer.FindAsync(id);
+            var customer = await _repo.GetByIdAsync(id.Value);
             if (customer == null)
             {
                 return NotFound();
             }
+
             return View(customer);
         }
 
-
-        // POST: Customer/Edit/5
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Customer customer)
         {
@@ -74,17 +70,13 @@ namespace LibraryManagement.Controllers
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
-            else
-            {
-                customer.UpdatedAt = DateTime.Now;
-                _dbContext.Update(customer);
-                await _dbContext.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
-            }
+            customer.UpdatedAt = DateTime.Now;
+            _repo.Update(customer);
+            await _repo.SaveAsync();
+
+            return RedirectToAction(nameof(Index));
         }
-
-        // GET: Customer/Details/5
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -93,8 +85,7 @@ namespace LibraryManagement.Controllers
                 return NotFound();
             }
 
-            var customer = await _dbContext.Customer
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+            var customer = await _repo.GetByIdAsync(id.Value);
             if (customer == null)
             {
                 return NotFound();

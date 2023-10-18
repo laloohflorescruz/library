@@ -1,9 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using BlogApp;
-using LibraryManagement.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.ViewModel
 {

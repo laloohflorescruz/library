@@ -1,7 +1,7 @@
 using LibraryManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogApp
+namespace LibraryManagement
 {
     public class AppDbContext : DbContext
     {

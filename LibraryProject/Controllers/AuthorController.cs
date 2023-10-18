@@ -1,22 +1,22 @@
-using BlogApp;
+using LibraryManagement;
 using LibraryManagement.Models;
+using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryProject.Controllers;
 
 public class AuthorController : Controller
 {
-    private readonly AppDbContext _dbContext;
-
-    public AuthorController(AppDbContext dbContext)
+    private readonly IGenericRepository<Author> _authorRep;
+    public AuthorController(IGenericRepository<Author> authorRep)
     {
-        _dbContext = dbContext;
+        _authorRep = authorRep;
     }
+
     public IActionResult Index()
     {
-        var vm = _dbContext.Author.ToList();
+        var vm = _authorRep.GetAllAsync().Result;
         return View(vm);
     }
 
@@ -30,28 +30,28 @@ public class AuthorController : Controller
     {
         if (!ModelState.IsValid)
         {
-            // If the model is not valid, return a BadRequest response with error messages with a dictionary
             return BadRequest(ModelState.GetErrorMessages());
         }
         else
         {
             vm.CreatedAt = DateTime.Now;
-            _dbContext.Author.Add(vm);
-            _dbContext.SaveChanges();
+            _authorRep.Add(vm);
+            _authorRep.SaveAsync();
+
             return RedirectToAction("Index");
         }
     }
 
 
     // GET: Author/Edit/5
-    public async Task<IActionResult> Edit(int? id)
+    public IActionResult Edit(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
 
-        var author = await _dbContext.Author.FindAsync(id);
+        var author = _authorRep.GetByIdAsync(id.Value);
         if (author == null)
         {
             return NotFound();
@@ -61,36 +61,34 @@ public class AuthorController : Controller
 
     // POST: Author/Edit/5
     [HttpPost]
-    public async Task<IActionResult> Edit(int id, Author author)
+    public IActionResult Edit(int id, Author author)
     {
         if (id != author.AuthorId)
         {
             return NotFound();
         }
+
         if (!ModelState.IsValid)
         {
-             return BadRequest(ModelState.GetErrorMessages());
+            return BadRequest(ModelState.GetErrorMessages());
         }
-        else
-        {
-            author.UpdatedAt = DateTime.Now;
-            _dbContext.Update(author);
-            await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
-        }
+        author.UpdatedAt = DateTime.Now;
+        _authorRep.Update(author);
+        _authorRep.SaveAsync();
+
+        return RedirectToAction(nameof(Index));
     }
 
     // GET: Author/Details/5
-    public async Task<IActionResult> Details(int? id)
+    public IActionResult Details(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
 
-        var author = await _dbContext.Author
-            .FirstOrDefaultAsync(m => m.AuthorId == id);
+        var author = _authorRep.GetByIdAsync(id.Value);
         if (author == null)
         {
             return NotFound();
@@ -99,4 +97,3 @@ public class AuthorController : Controller
         return View(author);
     }
 }
-

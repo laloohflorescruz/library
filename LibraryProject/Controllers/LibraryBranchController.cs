@@ -1,25 +1,23 @@
-using System.Diagnostics;
-using BlogApp;
 using LibraryManagement.Models;
+using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryProject.Controllers
 {
     public class LibraryBranchController : Controller
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IGenericRepository<LibraryBranch> _libRep;
 
-        public LibraryBranchController(AppDbContext dbContext)
+        public LibraryBranchController(IGenericRepository<LibraryBranch> libRep)
         {
-            _dbContext = dbContext;
+            _libRep = libRep;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = _dbContext.LibraryBranch.ToList();
-            return View(vm);
+            var vm = await _libRep.GetAllAsync();
+            return View(vm.ToList());
         }
 
         public IActionResult Create()
@@ -28,24 +26,20 @@ namespace LibraryProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(LibraryBranch vm)
+        public async Task<IActionResult> Create(LibraryBranch vm)
         {
-
             if (!ModelState.IsValid)
             {
-                // If the model is not valid, return a BadRequest response with error messages with a dictionary
                 return BadRequest(ModelState.GetErrorMessages());
             }
-            else
-            {
-                vm.CreatedAt = DateTime.Now;
-                _dbContext.LibraryBranch.Add(vm);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
+
+            vm.CreatedAt = DateTime.Now;
+            _libRep.Add(vm);
+            await _libRep.SaveAsync();
+
+            return RedirectToAction("Index");
         }
 
-        // GET: LibraryBranch/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -53,20 +47,19 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            var library = await _dbContext.LibraryBranch.FindAsync(id);
-            if (library == null)
+            var libraryBranch = await _libRep.GetByIdAsync(id.Value);
+            if (libraryBranch == null)
             {
                 return NotFound();
             }
-            return View(library);
+
+            return View(libraryBranch);
         }
 
-
-        // POST: LibraryBranch/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, LibraryBranch library)
+        public async Task<IActionResult> Edit(int id, LibraryBranch libraryBranch)
         {
-            if (id != library.LibraryBranchId)
+            if (id != libraryBranch.LibraryBranchId)
             {
                 return NotFound();
             }
@@ -75,21 +68,14 @@ namespace LibraryProject.Controllers
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.GetErrorMessages());
-            }
-            else
-            {
-                library.UpdatedAt = DateTime.Now;
-                _dbContext.Update(library);
-                await _dbContext.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
-            }
+            libraryBranch.UpdatedAt = DateTime.Now;
+            _libRep.Update(libraryBranch);
+            await _libRep.SaveAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: LibraryBranch/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -97,14 +83,13 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            var library = await _dbContext.LibraryBranch
-                .FirstOrDefaultAsync(m => m.LibraryBranchId == id);
-            if (library == null)
+            var libraryBranch = await _libRep.GetByIdAsync(id.Value);
+            if (libraryBranch == null)
             {
                 return NotFound();
             }
 
-            return View(library);
+            return View(libraryBranch);
         }
     }
 }
