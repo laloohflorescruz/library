@@ -1,12 +1,13 @@
 using BlogApp;
 using LibraryManagement.Models;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryProject.Controllers;
 
 public class BookController : Controller
-
 {
     private readonly AppDbContext _dbContext;
 
@@ -23,21 +24,35 @@ public class BookController : Controller
 
     public IActionResult Create()
     {
+        ViewBag.AuthorItems = GetAuthors();
+        ViewBag.LibraryItems = GetLibrary();
+
         return View();
     }
 
     [HttpPost]
     public IActionResult Create(Book vm)
     {
-        vm.CreatedAt = DateTime.Now;
-        _dbContext.Book.Add(vm);
-        _dbContext.SaveChanges();
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid)
+        {
+            // If the model is not valid, return a BadRequest response with error messages with a dictionary
+            return BadRequest(ModelState.GetErrorMessages());
+        }
+        else
+        {
+            vm.CreatedAt = DateTime.UtcNow;
+            _dbContext.Book.Add(vm);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 
     // GET: Book/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
+        ViewBag.AuthorItems = GetAuthors();
+        ViewBag.LibraryItems = GetLibrary();
+
         if (id == null)
         {
             return NotFound();
@@ -56,12 +71,20 @@ public class BookController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, Book book)
     {
-        if (id != book.AuthorId)
+        if (id != book.BookId)
         {
             return NotFound();
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.GetErrorMessages());
+        }
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.GetErrorMessages());
+        }
+        else
         {
             book.UpdatedAt = DateTime.Now;
             _dbContext.Update(book);
@@ -69,7 +92,6 @@ public class BookController : Controller
 
             return RedirectToAction(nameof(Index));
         }
-        return View(book);
     }
 
     // GET: Book/Details/5
@@ -89,5 +111,29 @@ public class BookController : Controller
         }
 
         return View(book);
+    }
+
+    public IEnumerable<SelectListItem> GetAuthors()
+    {
+        List<Author> authors = _dbContext.Author.ToList();
+        List<SelectListItem> authorItems = authors.Select(author => new SelectListItem
+        {
+            Value = author.AuthorId.ToString(),
+            Text = author.FirstName + " " + author.LastName
+        }).ToList();
+
+        return authorItems;
+    }
+
+    public IEnumerable<SelectListItem> GetLibrary()
+    {
+        List<LibraryBranch> branch = _dbContext.LibraryBranch.ToList();
+        List<SelectListItem> branches = branch.Select(branch => new SelectListItem
+        {
+            Value = branch.LibraryBranchId.ToString(),
+            Text = branch.BranchName
+        }).ToList();
+
+        return branches;
     }
 }

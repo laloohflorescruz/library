@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231009194509_Inheritance")]
-    partial class Inheritance
+    [Migration("20231018024104_RelationShipAgainII")]
+    partial class RelationShipAgainII
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,12 @@ namespace LibraryProject.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("NobelPrize")
@@ -67,6 +69,8 @@ namespace LibraryProject.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("LibraryBranchId")
@@ -76,12 +80,16 @@ namespace LibraryProject.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("BookId");
+
+                    b.HasIndex("LibraryBranchId");
 
                     b.ToTable("Book");
                 });
@@ -93,27 +101,37 @@ namespace LibraryProject.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Brithday")
+                    b.Property<DateTime>("Brithday")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(35)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("MembershipSince")
+                    b.Property<DateTime>("MembershipSince")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Student")
@@ -134,30 +152,59 @@ namespace LibraryProject.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OpeningHours")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
                         .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
                     b.HasKey("LibraryBranchId");
 
                     b.ToTable("LibraryBranch");
+                });
+
+            modelBuilder.Entity("LibraryManagement.Models.Book", b =>
+                {
+                    b.HasOne("LibraryManagement.Models.LibraryBranch", "LibraryBranch")
+                        .WithMany()
+                        .HasForeignKey("LibraryBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LibraryBranch");
                 });
 #pragma warning restore 612, 618
         }

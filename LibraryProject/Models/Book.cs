@@ -1,6 +1,7 @@
 namespace LibraryManagement.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class Book : Audit
 {
@@ -20,17 +21,18 @@ public class Book : Audit
     [Required(ErrorMessage = "Please insert the Publication date")]
     [Display(Name = "Publication")]
     [DataType(DataType.Date)]
-    public DateOnly PublicationDate { get; set; }
+    public DateTime PublicationDate { get; set; }
     public string? Genre { get; set; }
 
-    [ForeignKey("Author")]//Key for AuthorId
+    [ForeignKey("AuthorId")]
+    [Display(Name = "Author")]
     public int AuthorId { get; set; }
+    //public List<Author>? Author { get; set; }
 
-    [ForeignKey("Library")] //Foreing Key for LibraryBranch
+    [ForeignKey("LibraryBranchId")]
+    [Display(Name = "Branch")]
     public int LibraryBranchId { get; set; }
+    
+    //public required LibraryBranch LibraryBranch { get; set; }
 
-    public bool AvailableToBeTaken{ get; set; }
-
-    //public required LibraryBranch Library { get; set; } //Relation btw Library - Book
-    // public required Author author { get; set; } //Relation btw Autor - Book
 }

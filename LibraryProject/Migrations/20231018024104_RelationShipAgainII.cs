@@ -5,7 +5,7 @@
 namespace LibraryProject.Migrations
 {
     /// <inheritdoc />
-    public partial class RelationShipDeleted : Migration
+    public partial class RelationShipAgainII : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,16 +14,8 @@ namespace LibraryProject.Migrations
                 name: "FK_Book_Author_AuthorId",
                 table: "Book");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Book_LibraryBranch_LibraryBranchId",
-                table: "Book");
-
             migrationBuilder.DropIndex(
                 name: "IX_Book_AuthorId",
-                table: "Book");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Book_LibraryBranchId",
                 table: "Book");
         }
 
@@ -35,25 +27,12 @@ namespace LibraryProject.Migrations
                 table: "Book",
                 column: "AuthorId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Book_LibraryBranchId",
-                table: "Book",
-                column: "LibraryBranchId");
-
             migrationBuilder.AddForeignKey(
                 name: "FK_Book_Author_AuthorId",
                 table: "Book",
                 column: "AuthorId",
                 principalTable: "Author",
                 principalColumn: "AuthorId",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Book_LibraryBranch_LibraryBranchId",
-                table: "Book",
-                column: "LibraryBranchId",
-                principalTable: "LibraryBranch",
-                principalColumn: "LibraryBranchId",
                 onDelete: ReferentialAction.Cascade);
         }
     }

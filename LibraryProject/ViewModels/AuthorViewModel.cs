@@ -1,4 +1,6 @@
-﻿namespace LibraryManagement.ViewModel
+﻿using LibraryManagement.Models;
+
+namespace LibraryManagement.ViewModel
 {
     public class AuthorViewModel
     {
@@ -8,5 +10,6 @@
         public string? BirthPlace { get; set; }
         public bool? NobelPrize { get; set; }
 
+        public List<Author>? AuthorList {get; set; }
     }
 }

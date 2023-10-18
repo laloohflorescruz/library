@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LibraryProject.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +17,12 @@ namespace LibraryProject.Migrations
                 {
                     AuthorId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
                     BirthPlace = table.Column<string>(type: "TEXT", nullable: true),
-                    NobelPrize = table.Column<bool>(type: "INTEGER", nullable: true)
+                    NobelPrize = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,14 +35,16 @@ namespace LibraryProject.Migrations
                 {
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    Brithday = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    Brithday = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Student = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    MembershipSince = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Email = table.Column<string>(type: "TEXT", maxLength: 35, nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    Address = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    MembershipSince = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,13 +57,15 @@ namespace LibraryProject.Migrations
                 {
                     LibraryBranchId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BranchName = table.Column<string>(type: "TEXT", nullable: true),
-                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", nullable: false),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    OpeningHours = table.Column<string>(type: "TEXT", nullable: true)
+                    BranchName = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    ZipCode = table.Column<string>(type: "TEXT", maxLength: 6, nullable: false),
+                    Address = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    City = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    OpeningHours = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,12 +78,14 @@ namespace LibraryProject.Migrations
                 {
                     BookId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    ISBN = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
+                    ISBN = table.Column<string>(type: "TEXT", maxLength: 75, nullable: false),
                     PublicationDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Genre = table.Column<string>(type: "TEXT", nullable: true),
                     AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LibraryBranchId = table.Column<int>(type: "INTEGER", nullable: false)
+                    LibraryBranchId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

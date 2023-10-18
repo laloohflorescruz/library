@@ -59,9 +59,6 @@ namespace LibraryProject.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AvailableToBeTaken")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -103,7 +100,7 @@ namespace LibraryProject.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Brithday")
+                    b.Property<DateTime>("Brithday")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -124,7 +121,7 @@ namespace LibraryProject.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("MembershipSince")
+                    b.Property<DateTime>("MembershipSince")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")

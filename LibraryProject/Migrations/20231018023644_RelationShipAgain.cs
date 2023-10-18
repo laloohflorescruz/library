@@ -5,7 +5,7 @@
 namespace LibraryProject.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class RelationShipAgain : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

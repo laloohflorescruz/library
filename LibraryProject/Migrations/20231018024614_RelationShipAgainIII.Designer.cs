@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231015165640_InitialDB")]
-    partial class InitialDB
+    [Migration("20231018024614_RelationShipAgainIII")]
+    partial class RelationShipAgainIII
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,9 +62,6 @@ namespace LibraryProject.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AvailableToBeTaken")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -106,7 +103,7 @@ namespace LibraryProject.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Brithday")
+                    b.Property<DateTime>("Brithday")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -127,7 +124,7 @@ namespace LibraryProject.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("MembershipSince")
+                    b.Property<DateTime>("MembershipSince")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
