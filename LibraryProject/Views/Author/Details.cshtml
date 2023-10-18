@@ -1,9 +1,41 @@
-﻿@model LibraryManagement.Models.Author
+﻿ 
 
-<h1>Author: @Model.AuthorId</h1>
-<p>Author Last Name: @Model.LastName</p>
-<p>Author First Name: @Model.FirstName</p>
+@model LibraryManagement.Models.Author
+
+<h2>@Model.FirstName @Model.LastName</h2>
 
 
-<p>Author Birth Place: @Model.BirthPlace</p>
-<p>Has this author won any Nobel Prize?: @Model.NobelPrize</p>
+    <input type="hidden" asp-for="AuthorId" />
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="LastName">Last Name:</label>
+            <input asp-for="LastName" class="form-control" readonly/>
+         </div>
+
+        <div class="col">
+            <label asp-for="FirstName">First Name:</label>
+            <input asp-for="FirstName" class="form-control" readonly/>
+         </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label asp-for="BirthPlace">Place of Birth:</label>
+            <input asp-for="BirthPlace" class="form-control" readonly/>
+         </div>
+
+        <div class="col">
+            <label asp-for="NobelPrize">Nobel Prize:</label>
+            <select asp-for="NobelPrize" class="form-control" readonly>
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+            </select>
+        </div>
+    </div>
+
+    <br>
+    <div class="col-12">
+         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+ 

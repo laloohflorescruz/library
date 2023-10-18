@@ -98,6 +98,10 @@ public class BookController : Controller
 
     public async Task<IActionResult> Details(int? id)
     {
+        
+        ViewBag.AuthorItems = GetAuthors();
+        ViewBag.LibraryItems = GetLibrary();
+
         if (id == null)
         {
             return NotFound();
