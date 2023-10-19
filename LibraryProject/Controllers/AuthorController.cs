@@ -1,7 +1,5 @@
-using LibraryManagement;
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
-using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryProject.Controllers;
@@ -66,16 +64,17 @@ public class AuthorController : Controller
             return NotFound();
         }
 
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return BadRequest(ModelState.GetErrorMessages());
+
+
+            author.UpdatedAt = DateTime.Now;
+            _authorRepository.Update(author);
+            _authorRepository.SaveAsync().Wait(); // Note: Avoid using Wait in production code, consider using async/await all the way.
+
+            return RedirectToAction(nameof(Index));
         }
-
-        author.UpdatedAt = DateTime.Now;
-        _authorRepository.Update(author);
-        _authorRepository.SaveAsync().Wait(); // Note: Avoid using Wait in production code, consider using async/await all the way.
-
-        return RedirectToAction(nameof(Index));
+        return View();
     }
 
     // GET: Author/Details/5

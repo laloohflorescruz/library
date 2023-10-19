@@ -1,6 +1,5 @@
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
-using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryProject.Controllers
@@ -63,16 +62,17 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
+
             {
-                return BadRequest(ModelState.GetErrorMessages());
+
+                libraryBranch.UpdatedAt = DateTime.Now;
+                _libRep.Update(libraryBranch);
+                await _libRep.SaveAsync();
+
+                return RedirectToAction(nameof(Index));
             }
-
-            libraryBranch.UpdatedAt = DateTime.Now;
-            _libRep.Update(libraryBranch);
-            await _libRep.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
         public async Task<IActionResult> Details(int? id)

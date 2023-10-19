@@ -1,26 +1,31 @@
-﻿using System.Diagnostics;
-using LibraryManagement.Models;
+﻿using LibraryManagement.Models;
+using LibraryManagement.Repo;
 using Microsoft.AspNetCore.Mvc;
-
-namespace LibraryProject.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly IGenericRepository<Book> _bookRepository;
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IGenericRepository<Book> bookRepository, ILogger<HomeController> logger)
     {
+        _bookRepository = bookRepository;
         _logger = logger;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var books = _bookRepository.GetAllAsync();
+        return View(books);
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public async Task<IActionResult> Search(string searchBook)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var books = await _bookRepository.GetAllAsync();
+        if (!string.IsNullOrEmpty(searchBook))
+        {
+            books = books.Where(s => s.Title.Contains(searchBook)).ToList();
+        }
+        return View("SearchResults", books);
     }
 }

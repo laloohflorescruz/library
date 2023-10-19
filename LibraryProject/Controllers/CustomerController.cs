@@ -65,14 +65,14 @@ namespace LibraryManagement.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetErrorMessages());
+
+                customer.UpdatedAt = DateTime.Now;
+                _repo.Update(customer);
+                await _repo.SaveAsync();
+
+                return RedirectToAction(nameof(Index));
             }
-
-            customer.UpdatedAt = DateTime.Now;
-            _repo.Update(customer);
-            await _repo.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
         public async Task<IActionResult> Details(int? id)
