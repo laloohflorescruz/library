@@ -28,12 +28,10 @@ namespace LibraryManagement.ViewModel
     [ForeignKey("AuthorId")]
     [Display(Name = "Author")]
     public int AuthorId { get; set; }
-    //public List<Author>? Author { get; set; }
 
     [ForeignKey("LibraryBranchId")]
     [Display(Name = "Branch")]
     public int LibraryBranchId { get; set; }
     
-    //public required LibraryBranch LibraryBranch { get; set; }
    }
 }

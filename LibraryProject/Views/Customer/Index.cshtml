@@ -21,19 +21,22 @@
                 <td>@customer.CustomerId</td>
                 <td>@customer.FirstName</td>
                 <td>@customer.LastName</td>
-                <td>@customer.Birthday.ToString("dd/MM/yyyy")</td> 
+                <td>@customer.Birthday.ToString("dd/MM/yyyy")</td>
                 <td>@customer.Student</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Customer", new { id = customer.CustomerId })" class="btn btn-warning">Edit</a>
-                    <a href="@Url.Action("Details", "Customer", new { id = customer.CustomerId })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Edit", "Customer", new { id = customer.CustomerId })"
+                        class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Details", "Customer", new { id = customer.CustomerId })"
+                        class="btn btn-info">Details</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-@* Paginator 
-Read more: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+@* Paginator
+Read more:
+https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
 *@
 <div class="pagination justify-content-center">
     <nav aria-label="Page navigation">
@@ -41,7 +44,9 @@ Read more: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started
             @if (Model.PaginationInfo.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage - 1, pageSize = Model.PaginationInfo.PageSize })" aria-label="Previous">
+                    <a class="page-link"
+                        href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage - 1, pageSize = Model.PaginationInfo.PageSize })"
+                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -49,14 +54,17 @@ Read more: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started
             @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = Model.PaginationInfo.PageSize })">@i</a>
+                    <a class="page-link"
+                        href="@Url.Action("Index", new { page = i, pageSize = Model.PaginationInfo.PageSize })">@i</a>
                 </li>
             }
 
             @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage + 1, pageSize = Model.PaginationInfo.PageSize })" aria-label="Next">
+                    <a class="page-link"
+                        href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage + 1, pageSize = Model.PaginationInfo.PageSize })"
+                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

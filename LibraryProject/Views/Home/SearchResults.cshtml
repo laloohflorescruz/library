@@ -26,7 +26,7 @@ else
                 <tr>
                     <td>@book.BookId</td>
                     <td>@book.Title</td>
-                    <td>@book.PublicationDate.ToString("dd/MM/yyyy")</td>               
+                    <td>@book.PublicationDate.ToString("dd/MM/yyyy")</td>
                     <td>@book.Genre</td>
                     <td>
                         <a href="@Url.Action("Details", "Book", new { id = book.BookId })" class="btn btn-info">Details</a>

@@ -4,12 +4,10 @@ public class LibraryBranch : Audit
 {
   [Key]
   public int LibraryBranchId { get; set; }
-
   [Required(ErrorMessage = "Please inset a valid name")]
   [Display(Name = "Branch Name")]
   [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
   public string? BranchName { get; set; }
-
 
   [Required(ErrorMessage = "Please inset a valid zipcode")]
   [Display(Name = "ZipCode")]
@@ -38,7 +36,6 @@ public class LibraryBranch : Audit
   [Display(Name = "Email")]
   [DataType(DataType.EmailAddress)]
   [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
-
   public string? Email { get; set; }
 
   [Required(ErrorMessage = "Please inset the hours")]

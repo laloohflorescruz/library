@@ -5,14 +5,12 @@ namespace LibraryManagement.ViewModel
 {
     public class LibraryBranchViewModel : Audit
     {
-
         public int LibraryBranchId { get; set; }
 
         [Required(ErrorMessage = "Please inset a valid name")]
         [Display(Name = "Branch Name")]
         [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
         public string? BranchName { get; set; }
-
 
         [Required(ErrorMessage = "Please inset a valid zipcode")]
         [Display(Name = "ZipCode")]
@@ -23,7 +21,6 @@ namespace LibraryManagement.ViewModel
         [Required(ErrorMessage = "Please inset an address")]
         [Display(Name = "Address")]
         [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
-
         public string? Address { get; set; }
 
         [Required(ErrorMessage = "Please inset a phone number")]
@@ -41,7 +38,6 @@ namespace LibraryManagement.ViewModel
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
-
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Please inset the hours")]

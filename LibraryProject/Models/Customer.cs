@@ -4,7 +4,6 @@ public class Customer : Audit
 {
     [Key]
     public int CustomerId { get; set; }
-
     [Required(ErrorMessage = "Please inset a valid last name")]
     [Display(Name = "Last Name")]
     [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 2)]
@@ -35,7 +34,6 @@ public class Customer : Audit
     [StringLength(15, ErrorMessage = "Name length can't be more than 15.")]
     public string? Phone { get; set; }
 
-
     [Required(ErrorMessage = "Please inset an address")]
     [Display(Name = "Address")]
     [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -49,6 +47,5 @@ public class Customer : Audit
     public DateTime MembershipSince { get; set; }
     
     public string? Genre { get; set; }
-
 
 }
