@@ -1,5 +1,6 @@
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryProject.Controllers
@@ -15,8 +16,22 @@ namespace LibraryProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var vm = await _libRep.GetAllAsync();
-            return View(vm.ToList());
+            var branches = await _libRep.GetAllAsync();
+            var branchViewModels = branches.Select(branch => new LibraryBranchViewModel
+            {
+                LibraryBranchId = branch.LibraryBranchId,
+                BranchName = branch.BranchName,
+                ZipCode = branch.ZipCode,
+                Address = branch.Address,
+                Phone = branch.Phone,
+                City = branch.City,
+                Email = branch.Email,
+                OpeningHours = branch.OpeningHours,
+
+
+            }).ToList();
+
+            return View(branchViewModels);
         }
 
         public IActionResult Create()
@@ -25,17 +40,28 @@ namespace LibraryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(LibraryBranch vm)
+        public async Task<IActionResult> Create(LibraryBranchViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                vm.CreatedAt = DateTime.Now;
-                _libRep.Add(vm);
+                var branch = new LibraryBranch
+                {
+                    BranchName = viewModel.BranchName,
+                    ZipCode = viewModel.ZipCode,
+                    Address = viewModel.Address,
+                    Phone = viewModel.Phone,
+                    City = viewModel.City,
+                    Email = viewModel.Email,
+                    OpeningHours = viewModel.OpeningHours,
+                    CreatedAt = DateTime.Now
+                };
+
+                _libRep.Add(branch);
                 await _libRep.SaveAsync();
 
                 return RedirectToAction("Index");
             }
-            return View(vm);
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -45,34 +71,57 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            var libraryBranch = await _libRep.GetByIdAsync(id.Value);
-            if (libraryBranch == null)
+            var branch = await _libRep.GetByIdAsync(id.Value);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(libraryBranch);
+            var viewModel = new LibraryBranchViewModel
+            {
+                LibraryBranchId = branch.LibraryBranchId,
+                BranchName = branch.BranchName,
+                ZipCode = branch.ZipCode,
+                Address = branch.Address,
+                Phone = branch.Phone,
+                City = branch.City,
+                Email = branch.Email,
+                OpeningHours = branch.OpeningHours,
+                UpdatedAt = DateTime.Now
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, LibraryBranch libraryBranch)
+        public async Task<IActionResult> Edit(int id, LibraryBranchViewModel viewModel)
         {
-            if (id != libraryBranch.LibraryBranchId)
+            if (id != viewModel.LibraryBranchId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
-
             {
+                var branch = new LibraryBranch
+                {
+                    LibraryBranchId = viewModel.LibraryBranchId,
+                    BranchName = viewModel.BranchName,
+                    ZipCode = viewModel.ZipCode,
+                    Address = viewModel.Address,
+                    Phone = viewModel.Phone,
+                    City = viewModel.City,
+                    Email = viewModel.Email,
+                    OpeningHours = viewModel.OpeningHours,
+                    UpdatedAt = DateTime.Now
+                };
 
-                libraryBranch.UpdatedAt = DateTime.Now;
-                _libRep.Update(libraryBranch);
+                _libRep.Update(branch);
                 await _libRep.SaveAsync();
 
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -82,13 +131,29 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            var libraryBranch = await _libRep.GetByIdAsync(id.Value);
-            if (libraryBranch == null)
+            var branch = await _libRep.GetByIdAsync(id.Value);
+            if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(libraryBranch);
+            var viewModel = new LibraryBranchViewModel
+            {
+                LibraryBranchId = branch.LibraryBranchId,
+                BranchName = branch.BranchName,
+
+                ZipCode = branch.ZipCode,
+                Address = branch.Address,
+                Phone = branch.Phone,
+                City = branch.City,
+                Email = branch.Email,
+                OpeningHours = branch.OpeningHours,
+                CreatedAt = branch.CreatedAt,
+                UpdatedAt = branch.UpdatedAt
+
+            };
+
+            return View(viewModel);
         }
     }
 }

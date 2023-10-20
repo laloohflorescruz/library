@@ -1,60 +1,73 @@
-﻿@model LibraryManagement.Models.LibraryBranch
+﻿@model LibraryManagement.ViewModel.LibraryBranchViewModel
 
- <h2>@Model.BranchName (@Model.City)</h2>
+<h2>@Model.BranchName (@Model.City)</h2>
 
 
 
-    <input type="hidden" asp-for="LibraryBranchId" />
+<input type="hidden" asp-for="LibraryBranchId" />
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="BranchName"></label>
-            <input asp-for="BranchName" class="form-control" readonly/>
-         </div>
-
-        <div class="col">
-            <label asp-for="ZipCode"></label>
-            <input asp-for="ZipCode" class="form-control" readonly/>
-         </div>
+<div class="row">
+    <div class="col">
+        <label asp-for="BranchName"></label>
+        <input asp-for="BranchName" class="form-control" readonly />
     </div>
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="Address"></label>
-            <input asp-for="Address" class="form-control" readonly />
-         </div>
+    <div class="col">
+        <label asp-for="ZipCode"></label>
+        <input asp-for="ZipCode" class="form-control" readonly />
+    </div>
+</div>
 
-
-        <div class="col">
-            <label asp-for="Phone"></label>
-            <input asp-for="Phone" class="form-control" readonly/>
-         </div>
+<div class="row">
+    <div class="col">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" readonly />
     </div>
 
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="City"></label>
-            <input asp-for="City" class="form-control" readonly />
-         </div>
+    <div class="col">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" readonly />
+    </div>
+</div>
 
 
-        <div class="col">
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" readonly />
-         </div>
+<div class="row">
+    <div class="col">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" readonly />
     </div>
 
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="OpeningHours"></label>
-            <input asp-for="OpeningHours" class="form-control" readonly/>
-         </div>
+    <div class="col">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" readonly />
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <label asp-for="OpeningHours"></label>
+        <input asp-for="OpeningHours" class="form-control" readonly />
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col">
+        <label>Created:</label>
+        <input asp-for="CreatedAt" class="form-control" readonly />
     </div>
 
-    <br>
-    <div class="col-12">
-         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <div class="col">
+        <label>Last Update:</label>
+        <input asp-for="UpdatedAt" class="form-control" readonly />
     </div>
- 
+</div>
+
+<br>
+<div class="col-12">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

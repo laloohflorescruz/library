@@ -1,41 +1,49 @@
-﻿ 
-
-@model LibraryManagement.Models.Author
+﻿@model LibraryManagement.ViewModel.AuthorViewModel
 
 <h2>@Model.FirstName @Model.LastName</h2>
 
 
-    <input type="hidden" asp-for="AuthorId" />
+<input type="hidden" asp-for="AuthorId" />
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="LastName">Last Name:</label>
-            <input asp-for="LastName" class="form-control" readonly/>
-         </div>
-
-        <div class="col">
-            <label asp-for="FirstName">First Name:</label>
-            <input asp-for="FirstName" class="form-control" readonly/>
-         </div>
+<div class="row">
+    <div class="col">
+        <label asp-for="LastName">Last Name:</label>
+        <input asp-for="LastName" class="form-control" readonly />
     </div>
 
-    <div class="row">
-        <div class="col">
-            <label asp-for="BirthPlace">Place of Birth:</label>
-            <input asp-for="BirthPlace" class="form-control" readonly/>
-         </div>
+    <div class="col">
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" class="form-control" readonly />
+    </div>
+</div>
 
-        <div class="col">
-            <label asp-for="NobelPrize">Nobel Prize:</label>
-            <select asp-for="NobelPrize" class="form-control" readonly>
-                <option value="True">Yes</option>
-                <option value="False">No</option>
-            </select>
-        </div>
+<div class="row">
+    <div class="col">
+        <label asp-for="BirthPlace">Place of Birth:</label>
+        <input asp-for="BirthPlace" class="form-control" readonly />
     </div>
 
-    <br>
-    <div class="col-12">
-         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <div class="col">
+        <label asp-for="NobelPrize">Nobel Prize:</label>
+        <select asp-for="NobelPrize" class="form-control" readonly>
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+        </select>
     </div>
- 
+</div>
+
+<div class="row">
+    <div class="col">
+        <label>Created:</label>
+        <input asp-for="CreatedAt" class="form-control" readonly />
+    </div>
+
+    <div class="col">
+        <label>Last Update:</label>
+        <input asp-for="UpdatedAt" class="form-control" readonly />
+    </div>
+</div>
+<br>
+<div class="col-12">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

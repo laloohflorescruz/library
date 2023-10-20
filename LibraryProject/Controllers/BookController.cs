@@ -1,5 +1,6 @@
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -23,7 +24,18 @@ namespace LibraryProject.Controllers
         public async Task<IActionResult> Index()
         {
             var books = await _bookRepository.GetAllAsync();
-            return View(books.ToList());
+            var bookViewModels = books.Select(book => new BookViewModel
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                ISBN = book.ISBN,
+                PublicationDate = book.PublicationDate,
+                Genre = book.Genre,
+                AuthorId = book.AuthorId,
+                LibraryBranchId = book.LibraryBranchId
+            }).ToList();
+
+            return View(bookViewModels);
         }
 
         public async Task<IActionResult> CreateAsync()
@@ -34,13 +46,24 @@ namespace LibraryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Book vm)
+        public async Task<IActionResult> Create(BookViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                vm.CreatedAt = DateTime.UtcNow;
-                _bookRepository.Add(vm);
+                var book = new Book
+                {
+                    Title = vm.Title,
+                    ISBN = vm.ISBN,
+                    PublicationDate = vm.PublicationDate,
+                    Genre = vm.Genre,
+                    AuthorId = vm.AuthorId,
+                    LibraryBranchId = vm.LibraryBranchId,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _bookRepository.Add(book);
                 await _bookRepository.SaveAsync();
+
                 return RedirectToAction("Index");
             }
 
@@ -62,30 +85,54 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
+            var bookViewModel = new BookViewModel
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                ISBN = book.ISBN,
+                PublicationDate = book.PublicationDate,
+                Genre = book.Genre,
+                AuthorId = book.AuthorId,
+                LibraryBranchId = book.LibraryBranchId,
+                UpdatedAt = book.UpdatedAt
+            };
+
             ViewBag.AuthorItems = await GetAuthorsAsync();
             ViewBag.LibraryItems = await GetLibraryAsync();
-            return View(book);
+            return View(bookViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Book book)
+        public async Task<IActionResult> Edit(int id, BookViewModel vm)
         {
-            if (id != book.BookId)
+            if (id != vm.BookId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                book.UpdatedAt = DateTime.Now;
+                var book = new Book
+                {
+                    BookId = vm.BookId,
+                    Title = vm.Title,
+                    ISBN = vm.ISBN,
+                    PublicationDate = vm.PublicationDate,
+                    Genre = vm.Genre,
+                    AuthorId = vm.AuthorId,
+                    LibraryBranchId = vm.LibraryBranchId,
+                    UpdatedAt = DateTime.Now
+                };
+
                 _bookRepository.Update(book);
                 await _bookRepository.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
 
             ViewBag.AuthorItems = await GetAuthorsAsync();
             ViewBag.LibraryItems = await GetLibraryAsync();
-            return View(book);
+            return View(vm);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -101,9 +148,22 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
+            var bookViewModel = new BookViewModel
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                ISBN = book.ISBN,
+                PublicationDate = book.PublicationDate,
+                Genre = book.Genre,
+                AuthorId = book.AuthorId,
+                LibraryBranchId = book.LibraryBranchId,
+                CreatedAt = book.CreatedAt,
+                UpdatedAt = book.UpdatedAt
+            };
+
             ViewBag.AuthorItems = await GetAuthorsAsync();
             ViewBag.LibraryItems = await GetLibraryAsync();
-            return View(book);
+            return View(bookViewModel);
         }
 
         private async Task<SelectList> GetAuthorsAsync()
@@ -120,6 +180,7 @@ namespace LibraryProject.Controllers
 
             return new SelectList(authorItems, "Value", "Text");
         }
+
         private async Task<SelectList> GetLibraryAsync()
         {
             var branches = await _libraryBranchRepository.GetAllAsync();

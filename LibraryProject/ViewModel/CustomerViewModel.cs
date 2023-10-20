@@ -5,7 +5,6 @@ namespace LibraryManagement.ViewModel
 {
     public class CustomerViewModel : Audit
     {
-        [Key]
         public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "Please inset a valid last name")]
@@ -21,7 +20,7 @@ namespace LibraryManagement.ViewModel
         [Required(ErrorMessage = "Please inset a valid birthday")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
-        public DateTime Brithday { get; set; }
+        public DateTime Birthday { get; set; }
 
         [Display(Name = "Is a student?")]
         public bool Student { get; set; }
@@ -50,6 +49,5 @@ namespace LibraryManagement.ViewModel
         [Required(ErrorMessage = "Please inset a valid date")]
         [DataType(DataType.Date)]
         public DateTime MembershipSince { get; set; }
-
     }
 }

@@ -45,6 +45,4 @@ public class LibraryBranch : Audit
   [Display(Name = "Opening Hours")]
   public string? OpeningHours { get; set; }
 
-  
-
 }

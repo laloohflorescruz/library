@@ -1,4 +1,4 @@
-﻿@model LibraryManagement.Models.Book
+﻿@model LibraryManagement.ViewModel.BookViewModel
 
 <h2>@Model.Title</h2>
 
@@ -42,6 +42,19 @@
                  (IEnumerable<SelectListItem>)ViewBag.LibraryItems,
                  "Select Library Branch",
                  new { @class = "form-control", disabled = "disabled" })
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <label>Created:</label>
+        <input asp-for="CreatedAt" class="form-control" readonly />
+    </div>
+
+    <div class="col">
+        <label>Last Update:</label>
+        <input asp-for="UpdatedAt" class="form-control" readonly />
     </div>
 </div>
 

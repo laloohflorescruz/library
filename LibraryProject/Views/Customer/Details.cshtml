@@ -1,4 +1,4 @@
-﻿@model LibraryManagement.Models.Customer
+﻿@model LibraryManagement.ViewModel.CustomerViewModel
 
 <h2>@Model.FirstName @Model.LastName</h2>
 
@@ -52,6 +52,20 @@
         </select>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col">
+        <label>Created:</label>
+        <input asp-for="CreatedAt" class="form-control" readonly />
+    </div>
+
+    <div class="col">
+        <label>Last Update:</label>
+        <input asp-for="UpdatedAt" class="form-control" readonly />
+    </div>
+</div>
+
 
 <br>
 <div class=" col-12">

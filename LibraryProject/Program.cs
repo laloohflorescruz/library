@@ -1,3 +1,4 @@
+using LibraryManagement;
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
 
@@ -5,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<LibraryManagement.AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>();
 
 //Services here!
 builder.Services.AddScoped<IGenericRepository<Author>, GenericRepository<Author>>();

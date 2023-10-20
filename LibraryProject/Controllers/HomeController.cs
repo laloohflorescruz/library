@@ -1,6 +1,10 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Repo;
+using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class HomeController : Controller
 {
@@ -13,10 +17,18 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var books = _bookRepository.GetAllAsync();
-        return View(books);
+        var books = await _bookRepository.GetAllAsync();
+        var bookViewModels = books.Select(book => new BookViewModel
+        {
+            BookId = book.BookId,
+            Title = book.Title,
+            AuthorId = book.AuthorId,
+            Genre = book.Genre,
+        }).ToList();
+
+        return View(bookViewModels);
     }
 
     public async Task<IActionResult> Search(string searchBook)
@@ -26,6 +38,15 @@ public class HomeController : Controller
         {
             books = books.Where(s => s.Title.Contains(searchBook)).ToList();
         }
-        return View("SearchResults", books);
+
+        var bookViewModels = books.Select(book => new BookViewModel
+        {
+            BookId = book.BookId,
+            Title = book.Title,
+            AuthorId = book.AuthorId,
+            Genre = book.Genre,
+        }).ToList();
+
+        return View("SearchResults", bookViewModels);
     }
 }
