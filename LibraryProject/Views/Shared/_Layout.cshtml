@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LibraryManagement</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -67,11 +67,10 @@
 
 
             </ul>
-            <form class="form-inline my-2 my-lg-0" asp-controller="Home" asp-action="Search" method="get">
-                <input class="form-control mr-sm-2" type="search" name="searchBook" placeholder="Book name"
-                    aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+<form class="form-inline my-2 my-lg-0" asp-controller="Home" asp-action="Search" method="get">
+    <input class="form-control mr-sm-2" type="search" name="searchBook" placeholder="Book name" aria-label="Search" required>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
         </div>
     </nav>
 

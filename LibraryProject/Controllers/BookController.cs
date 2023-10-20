@@ -193,6 +193,8 @@ namespace LibraryProject.Controllers
             var authors = await _authorRepository.GetAllAsync();
 
             var authorItems = authors
+            .OrderBy(author => author.FirstName) // Sort by first name
+            .ThenBy(author => author.LastName)  // Then sort by last name
                 .Select(author => new
                 {
                     Value = author.AuthorId,
@@ -206,7 +208,17 @@ namespace LibraryProject.Controllers
         private async Task<SelectList> GetLibraryAsync()
         {
             var branches = await _libraryBranchRepository.GetAllAsync();
-            return new SelectList(branches, nameof(LibraryBranch.LibraryBranchId), nameof(LibraryBranch.BranchName));
+
+            var libraryItems = branches
+                .OrderBy(branch => branch.BranchName)  // Sort branches by name in ascending order
+                .Select(branch => new
+                {
+                    Value = branch.LibraryBranchId,
+                    Text = branch.BranchName
+                })
+                .ToList();
+
+            return new SelectList(libraryItems, "Value", "Text");
         }
     }
 }

@@ -2,9 +2,6 @@
 using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Threading.Tasks;
 
 public class HomeController : Controller
 {
@@ -17,21 +14,13 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var books = await _bookRepository.GetAllAsync();
-        var bookViewModels = books.Select(book => new BookViewModel
-        {
-            BookId = book.BookId,
-            Title = book.Title,
-            AuthorId = book.AuthorId,
-            Genre = book.Genre,
-        }).ToList();
-
-        return View(bookViewModels);
+        var books = _bookRepository.GetAllAsync();
+        return View(books);
     }
 
-    public async Task<IActionResult> Search(string searchBook)
+    public async Task<IActionResult> Search(string searchBook, int page = 1, int pageSize = 5)
     {
         var books = await _bookRepository.GetAllAsync();
         if (!string.IsNullOrEmpty(searchBook))
@@ -39,14 +28,35 @@ public class HomeController : Controller
             books = books.Where(s => s.Title.Contains(searchBook)).ToList();
         }
 
-        var bookViewModels = books.Select(book => new BookViewModel
-        {
-            BookId = book.BookId,
-            Title = book.Title,
-            AuthorId = book.AuthorId,
-            Genre = book.Genre,
-        }).ToList();
+        var totalItems = books.Count();
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
 
-        return View("SearchResults", bookViewModels);
+        var bookViewModels = books
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(book => new BookViewModel
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                AuthorId = book.AuthorId,
+                Genre = book.Genre,
+                PublicationDate= book.PublicationDate
+            }).ToList();
+
+        var paginationInfo = new PaginationInfoViewModel
+        {
+            CurrentPage = page,
+            PageSize = pageSize,
+            TotalItems = totalItems,
+            TotalPages = totalPages
+        };
+
+        var viewModel = new BookIndexViewModel
+        {
+            Book = bookViewModels,
+            PaginationInfo = paginationInfo
+        };
+
+        return View("SearchResults", viewModel);
     }
 }
