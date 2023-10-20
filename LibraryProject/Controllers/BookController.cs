@@ -21,21 +21,41 @@ namespace LibraryProject.Controllers
             _libraryBranchRepository = libraryBranchRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)//Defaul value to be shown on Index = 10
         {
             var books = await _bookRepository.GetAllAsync();
-            var bookViewModels = books.Select(book => new BookViewModel
-            {
-                BookId = book.BookId,
-                Title = book.Title,
-                ISBN = book.ISBN,
-                PublicationDate = book.PublicationDate,
-                Genre = book.Genre,
-                AuthorId = book.AuthorId,
-                LibraryBranchId = book.LibraryBranchId
-            }).ToList();
 
-            return View(bookViewModels);
+            var totalItems = books.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var bookViewModels = books
+             .Skip((page - 1) * pageSize)
+             .Take(pageSize)//Values for pages = 10
+             .Select(book => new BookViewModel
+             {
+                 BookId = book.BookId,
+                 Title = book.Title,
+                 ISBN = book.ISBN,
+                 PublicationDate = book.PublicationDate,
+                 Genre = book.Genre,
+                 AuthorId = book.AuthorId,
+                 LibraryBranchId = book.LibraryBranchId
+             }).ToList();
+
+            var paginationInfo = new PaginationInfoViewModel
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages
+            };
+
+            var viewModel = new BookIndexViewModel
+            {
+                Book = bookViewModels,
+                PaginationInfo = paginationInfo
+            };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> CreateAsync()
@@ -94,7 +114,8 @@ namespace LibraryProject.Controllers
                 Genre = book.Genre,
                 AuthorId = book.AuthorId,
                 LibraryBranchId = book.LibraryBranchId,
-                UpdatedAt = book.UpdatedAt
+                CreatedAt = book.CreatedAt,
+                UpdatedAt = DateTime.Now
             };
 
             ViewBag.AuthorItems = await GetAuthorsAsync();
@@ -121,6 +142,7 @@ namespace LibraryProject.Controllers
                     Genre = vm.Genre,
                     AuthorId = vm.AuthorId,
                     LibraryBranchId = vm.LibraryBranchId,
+                    CreatedAt = vm.CreatedAt,
                     UpdatedAt = DateTime.Now
                 };
 

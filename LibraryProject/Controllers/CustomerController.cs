@@ -14,23 +14,45 @@ namespace LibraryManagement.Controllers
             _repo = repo;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)//Defaul value to be shown on Index = 10
         {
-            var customers = await _repo.GetAllAsync();
-            var customerViewModels = customers.Select(customer => new CustomerViewModel
-            {
-                CustomerId = customer.CustomerId,
-                LastName = customer.LastName, 
-                FirstName = customer.FirstName,
-                Birthday = customer.Birthday,
-                Student = customer.Student,
-                Email = customer.Email,
-                Phone = customer.Phone,
-                Address = customer.Address,
-                MembershipSince = customer.MembershipSince
-            }).ToList();
+            var customer = await _repo.GetAllAsync();
 
-            return View(customerViewModels);
+            var totalItems = customer.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var customerViewModels = customer
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)//Values for pages = 10
+                .Select(customer => new CustomerViewModel
+                {
+                    CustomerId = customer.CustomerId,
+                    LastName = customer.LastName,
+                    FirstName = customer.FirstName,
+                    Birthday = customer.Birthday,
+                    Student = customer.Student,
+                    Email = customer.Email,
+                    Phone = customer.Phone,
+                    Address = customer.Address,
+                    MembershipSince = customer.MembershipSince,
+                    Genre = customer.Genre
+
+                }).ToList();
+
+            var paginationInfo = new PaginationInfoViewModel
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages
+            };
+
+            var viewModel = new CustomerIndexViewModel
+            {
+                Customer = customerViewModels,
+                PaginationInfo = paginationInfo
+            };
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -54,7 +76,8 @@ namespace LibraryManagement.Controllers
                     Phone = viewModel.Phone,
                     Address = viewModel.Address,
                     MembershipSince = viewModel.MembershipSince,
-                    CreatedAt = viewModel.CreatedAt
+                    Genre = viewModel.Genre,
+                    CreatedAt = DateTime.Now
                 };
 
                 _repo.Add(customer);
@@ -88,7 +111,9 @@ namespace LibraryManagement.Controllers
                 Phone = customer.Phone,
                 Address = customer.Address,
                 MembershipSince = customer.MembershipSince,
-                UpdatedAt = customer.UpdatedAt
+                Genre = customer.Genre,
+                CreatedAt = customer.CreatedAt,
+                UpdatedAt = DateTime.Now
             };
 
             return View(viewModel);
@@ -115,7 +140,9 @@ namespace LibraryManagement.Controllers
                     Phone = viewModel.Phone,
                     Address = viewModel.Address,
                     MembershipSince = viewModel.MembershipSince,
-                    UpdatedAt = viewModel.UpdatedAt
+                    Genre = viewModel.Genre,
+                    CreatedAt = viewModel.CreatedAt,
+                    UpdatedAt = DateTime.Now
                 };
 
                 _repo.Update(customer);
@@ -149,6 +176,7 @@ namespace LibraryManagement.Controllers
                 Phone = customer.Phone,
                 Address = customer.Address,
                 MembershipSince = customer.MembershipSince,
+                Genre = customer.Genre,
                 CreatedAt = customer.CreatedAt,
                 UpdatedAt = customer.UpdatedAt
             };

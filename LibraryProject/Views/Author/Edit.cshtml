@@ -7,6 +7,8 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="AuthorId" />
+    <input type="hidden" asp-for="CreatedAt" />
+
 
     <div class="row">
         <div class="col">
@@ -30,7 +32,7 @@
             <span asp-validation-for="BirthPlace" class="text-danger"></span>
         </div>
 
-         <div class="col">
+        <div class="col">
             <label asp-for="NobelPrize"></label>
             <select asp-for="NobelPrize" class="form-control">
                 <option value="True">Yes</option>

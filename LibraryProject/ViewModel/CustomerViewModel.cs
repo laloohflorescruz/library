@@ -9,12 +9,12 @@ namespace LibraryManagement.ViewModel
 
         [Required(ErrorMessage = "Please inset a valid last name")]
         [Display(Name = "Last Name")]
-        [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+        [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 2)]
         public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Please inset a valid name")]
         [Display(Name = "First Name")]
-        [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+        [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
         public string? FirstName { get; set; }
 
         [Required(ErrorMessage = "Please inset a valid birthday")]
@@ -49,5 +49,8 @@ namespace LibraryManagement.ViewModel
         [Required(ErrorMessage = "Please inset a valid date")]
         [DataType(DataType.Date)]
         public DateTime MembershipSince { get; set; }
+        
+        public string? Genre { get; set; }
+
     }
 }

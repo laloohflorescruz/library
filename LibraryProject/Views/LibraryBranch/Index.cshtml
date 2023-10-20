@@ -1,4 +1,4 @@
-@model List<LibraryManagement.ViewModel.LibraryBranchViewModel>
+@model LibraryManagement.ViewModel.LibraryBranchIndexViewModel
 
 <h2>Library Branch</h2>
 <a href="@Url.Action("Create", "LibraryBranch")" class="btn btn-primary">Create Library Branch</a>
@@ -11,11 +11,11 @@
             <th>ZipCode</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Actions</th> <!-- Added column for actions -->
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var library in Model)
+        @foreach (var library in Model.LibraryBranches)
         {
             <tr>
                 <td>@library.LibraryBranchId</td>
@@ -31,3 +31,36 @@
         }
     </tbody>
 </table>
+
+@* Paginator 
+Read more: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+*@
+<div class="pagination justify-content-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @if (Model.PaginationInfo.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage - 1, pageSize = Model.PaginationInfo.PageSize })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = Model.PaginationInfo.PageSize })">@i</a>
+                </li>
+            }
+
+            @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PaginationInfo.CurrentPage + 1, pageSize = Model.PaginationInfo.PageSize })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

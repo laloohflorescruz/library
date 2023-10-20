@@ -14,26 +14,45 @@ namespace LibraryProject.Controllers
             _libRep = libRep;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)//Defaul value to be shown on Index = 10
         {
             var branches = await _libRep.GetAllAsync();
-            var branchViewModels = branches.Select(branch => new LibraryBranchViewModel
+
+            var totalItems = branches.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var branchViewModels = branches
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)//Values for pages = 10
+                .Select(branch => new LibraryBranchViewModel
+                {
+                    LibraryBranchId = branch.LibraryBranchId,
+                    BranchName = branch.BranchName,
+                    ZipCode = branch.ZipCode,
+                    Address = branch.Address,
+                    Phone = branch.Phone,
+                    City = branch.City,
+                    Email = branch.Email,
+                    OpeningHours = branch.OpeningHours,
+                    CreatedAt = branch.CreatedAt,
+                    UpdatedAt = branch.UpdatedAt
+                }).ToList();
+
+            var paginationInfo = new PaginationInfoViewModel
             {
-                LibraryBranchId = branch.LibraryBranchId,
-                BranchName = branch.BranchName,
-                ZipCode = branch.ZipCode,
-                Address = branch.Address,
-                Phone = branch.Phone,
-                City = branch.City,
-                Email = branch.Email,
-                OpeningHours = branch.OpeningHours,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages
+            };
 
-
-            }).ToList();
-
-            return View(branchViewModels);
+            var viewModel = new LibraryBranchIndexViewModel
+            {
+                LibraryBranches = branchViewModels,
+                PaginationInfo = paginationInfo
+            };
+            return View(viewModel);
         }
-
         public IActionResult Create()
         {
             return View();
@@ -87,6 +106,7 @@ namespace LibraryProject.Controllers
                 City = branch.City,
                 Email = branch.Email,
                 OpeningHours = branch.OpeningHours,
+                CreatedAt = branch.CreatedAt,
                 UpdatedAt = DateTime.Now
             };
 
@@ -113,6 +133,7 @@ namespace LibraryProject.Controllers
                     City = viewModel.City,
                     Email = viewModel.Email,
                     OpeningHours = viewModel.OpeningHours,
+                    CreatedAt = viewModel.CreatedAt,
                     UpdatedAt = DateTime.Now
                 };
 

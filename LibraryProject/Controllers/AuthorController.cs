@@ -14,10 +14,16 @@ namespace LibraryProject.Controllers
             _authorRepository = authorRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)//Defaul value to be shown on Index = 10
         {
             var authors = await _authorRepository.GetAllAsync();
-            var authorViewModels = authors.Select(author => new AuthorViewModel
+            var totalItems = authors.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var authorViewModels = authors
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)//Values for pages = 10
+            .Select(author => new AuthorViewModel
             {
                 AuthorId = author.AuthorId,
                 LastName = author.LastName,
@@ -26,7 +32,21 @@ namespace LibraryProject.Controllers
                 NobelPrize = author.NobelPrize
             }).ToList();
 
-            return View(authorViewModels);
+             var paginationInfo = new PaginationInfoViewModel
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages
+            };
+            
+            var viewModel = new AuthorIndexViewModel
+            {
+                Author = authorViewModels,
+                PaginationInfo = paginationInfo
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -45,7 +65,7 @@ namespace LibraryProject.Controllers
                     FirstName = vm.FirstName,
                     BirthPlace = vm.BirthPlace,
                     NobelPrize = vm.NobelPrize,
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
                 };
                 _authorRepository.Add(author);
                 await _authorRepository.SaveAsync();
@@ -75,7 +95,8 @@ namespace LibraryProject.Controllers
                 FirstName = author.FirstName,
                 BirthPlace = author.BirthPlace,
                 NobelPrize = author.NobelPrize,
-                UpdatedAt = author.UpdatedAt
+                CreatedAt = author.CreatedAt,
+                UpdatedAt = DateTime.Now
             };
 
             return View(authorViewModel);
@@ -98,6 +119,7 @@ namespace LibraryProject.Controllers
                     FirstName = vm.FirstName,
                     BirthPlace = vm.BirthPlace,
                     NobelPrize = vm.NobelPrize,
+                    CreatedAt = vm.CreatedAt,
                     UpdatedAt = DateTime.Now
                 };
 

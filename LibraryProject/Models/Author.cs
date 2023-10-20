@@ -7,12 +7,12 @@ public class Author : Audit
 
     [Required(ErrorMessage = "Please insert the First Name")]
     [Display(Name = "Last name")]
-    [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+    [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
     public string? LastName { get; set; }
 
     [Required(ErrorMessage = "Please insert the Last Name")]
     [Display(Name = "First name")]
-    [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+    [StringLength(75, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 2)]
     public string? FirstName { get; set; }
 
     [Display(Name = "Birth Place")]
