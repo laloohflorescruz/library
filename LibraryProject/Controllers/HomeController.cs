@@ -25,7 +25,7 @@ public class HomeController : Controller
         var books = await _bookRepository.GetAllAsync();
         if (!string.IsNullOrEmpty(searchBook))
         {
-            books = books.Where(s => s.Title.Contains(searchBook)).ToList();
+            books = books.Where(s => s.Title!.Contains(searchBook)).ToList();
         }
 
         var totalItems = books.Count();

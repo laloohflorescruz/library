@@ -1,0 +1,74 @@
+@model LibraryManagement.ViewModel.BookIndexViewModel
+
+<h2>Search Results</h2>
+
+@if (Model == null || Model.Book == null || !Model.Book.Any())
+{
+    <p style="color: red;">No matching books found.</p>
+}
+else
+{
+    <h4 style="color: blue;">Total Items: @Model.PaginationInfo.TotalItems</h4>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Publication</th>
+                <th>Genre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Book)
+            {
+                <tr>
+                    <td>@book.BookId</td>
+                    <td>@book.Title</td>
+                    <td>@book.PublicationDate.ToString("dd/MM/yyyy")</td>
+                    <td>@book.Genre</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Book", new { id = book.BookId })" class="btn btn-info">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Paginator -->
+    <div class="pagination justify-content-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (Model.PaginationInfo.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="@Url.Action("Search", new { page = Model.PaginationInfo.CurrentPage - 1, pageSize = Model.PaginationInfo.PageSize })"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (int i = 1; i <= Model.PaginationInfo.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
+                        <a class="page-link"
+                            href="@Url.Action("Search", new { page = i, pageSize = Model.PaginationInfo.PageSize })">@i</a>
+                    </li>
+                }
+
+                @if (Model.PaginationInfo.CurrentPage < Model.PaginationInfo.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="@Url.Action("Search", new { page = Model.PaginationInfo.CurrentPage + 1, pageSize = Model.PaginationInfo.PageSize })"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+}
