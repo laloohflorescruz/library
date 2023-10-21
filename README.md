@@ -59,6 +59,11 @@ dotnet restore
 
 -dotnet run
 
+### 5. Release the Project
+
+-If you want release the project, you could run: dotnet publish -c Release -o library
+
+
 
 The application will be accessible at `https://localhost:7243/` by default.
 
