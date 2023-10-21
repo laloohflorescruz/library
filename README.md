@@ -1,14 +1,23 @@
 ## Library Management System
 
-This is a Library Management System project built using SQLite, Bootstrap, and Entity Framework Core version 7. The system is designed to manage books, authors, and library branch.
+This is a Library Management System project built using  Entity Framework Core version 7, SQLite and Bootstrap. The system is designed to manage books, authors, library branch and customers.
 
 This is a project for university.
-
 
 ## Project Features
 1. List of book
 2. Create and Edit books
 3. Details of book 
+4. List of authors
+5. Create and Edit authors
+6. Details of authors 
+7. List of customers
+8. Create and Edit customers
+9. Details of customers
+10. List of Libraries branchs
+11. Create and Edit libraries branch
+12. Details of Libraries branch
+13. Seach (Only for books)
 
 
 ## Prerequisites
@@ -27,6 +36,9 @@ cd LibraryProject
 
 ## Tool Required:
 -dotnet tool install --global dotnet-ef --version 7.0.0
+-dotnet add package Microsoft.EntityFrameworkCore
+-dotnet add package Microsoft.EntityFrameworkCore.Design
+-dotnet add package Microsoft.EntityFrameworkCore.SQLite  
 
  
 ## 1. Run the project
@@ -34,18 +46,13 @@ cd LibraryProject
 
 ### 2. Install Dependencies
 dotnet restore
- 
 
 ### 3. Database Migration
-#### 3.1 Install Entity Framework Core Tools
 
--dotnet tool install --global dotnet-ef --version 7.0.0
-
-
-#### 3.2 Run Database Migrations
+#### 3.1 Run Database Migrations
 
 -cd LibraryProject
--dotnet ef migrations add InitialCreate
+-dotnet ef migrations add InitialCreate (If you want create a new database empty)
 -dotnet ef database update
 
 ### 4. Run the Project
@@ -53,10 +60,10 @@ dotnet restore
 -dotnet run
 
 
-
 The application will be accessible at `https://localhost:7243/` by default.
 
 ## Project Structure
+
 - **LibraryProject/**
   - **Controllers/** - Contains the controllers for handling HTTP requests.
   - **Models/** - Contains the data models used in the application.
@@ -93,7 +100,3 @@ The application will be accessible at `https://localhost:7243/` by default.
 ## Contributing
 Feel free to contribute to the development of this project by opening issues or pull requests. Your feedback is highly appreciated!
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
- 
- 
