@@ -1,22 +1,25 @@
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
+
         public DbSet<Author> Author { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<LibraryBranch> LibraryBranch { get; set; }
-        private readonly IConfiguration _configuration;
-        public AppDbContext(IConfiguration configuration)
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
+        // }
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
         {
-            _configuration = configuration;
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
         }
     }
 }

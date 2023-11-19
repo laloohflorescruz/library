@@ -40,7 +40,7 @@ public class HomeController : Controller
                 Title = book.Title,
                 AuthorId = book.AuthorId,
                 Genre = book.Genre,
-                PublicationDate= book.PublicationDate
+                PublicationDate = book.PublicationDate
             }).ToList();
 
         var paginationInfo = new PaginationInfoViewModel
@@ -58,5 +58,9 @@ public class HomeController : Controller
         };
 
         return View("SearchResults", viewModel);
+    }
+    public IActionResult Privacy()
+    {
+        return View();
     }
 }
