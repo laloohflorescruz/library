@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -12,7 +12,10 @@
 <h1>Manage your account</h1>
 
 <div>
-    <h2>Change your account settings</h2>
+
+    <div class="alert alert-info" role="alert">
+        Change settings
+    </div>
     <hr />
     <div class="row">
         <div class="col-md-3">

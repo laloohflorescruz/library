@@ -1,81 +1,97 @@
 ﻿@model LibraryManagement.ViewModel.CustomerViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
-<h2>@Model.FirstName @Model.LastName</h2>
 
-<div class="row">
-    <div class="col">
-        <label>Last Name:</label>
-        <input asp-for="LastName" class="form-control" readonly />
+@if (SignInManager.IsSignedIn(User))
+{
+    <h2>@Model.FirstName @Model.LastName</h2>
+
+
+    <div class="row">
+        <div class="col">
+            <label>Last Name:</label>
+            <input asp-for="LastName" class="form-control" readonly />
+        </div>
+
+        <div class="col">
+            <label>First Name:</label>
+            <input asp-for="FirstName" class="form-control" readonly />
+        </div>
     </div>
 
-    <div class="col">
-        <label>First Name:</label>
-        <input asp-for="FirstName" class="form-control" readonly />
-    </div>
-</div>
+    <div class="row">
+        <div class="col">
+            <label>Birthday:</label>
+            <input asp-for="Birthday" class="form-control" readonly />
+        </div>
 
-<div class="row">
-    <div class="col">
-        <label>Birthday:</label>
-        <input asp-for="Birthday" class="form-control" readonly />
-    </div>
-
-    <div class="col">
-        <label>Email:</label>
-        <input asp-for="Email" class="form-control" readonly />
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <label>Phone:</label>
-        <input asp-for="Phone" class="form-control" readonly />
+        <div class="col">
+            <label>Email:</label>
+            <input asp-for="Email" class="form-control" readonly />
+        </div>
     </div>
 
-    <div class="col">
-        <label>Address:</label>
-        <input asp-for="Address" class="form-control" readonly />
-    </div>
-</div>
+    <div class="row">
+        <div class="col">
+            <label>Phone:</label>
+            <input asp-for="Phone" class="form-control" readonly />
+        </div>
 
-<div class="row">
-    <div class="col">
-        <label>Membership Since:</label>
-        <input asp-for="MembershipSince" class="form-control" readonly />
-    </div>
-
-    <div class="col">
-        <label>Student:</label>
-        <select asp-for="Student" class="form-control" readonly>
-            <option value="True">Yes</option>
-            <option value="False">No</option>
-        </select>
+        <div class="col">
+            <label>Address:</label>
+            <input asp-for="Address" class="form-control" readonly />
+        </div>
     </div>
 
-    <div class="col">
-        <label>Genre:</label>
-        <select asp-for="Genre" class="form-control" readonly>
-            <option value="M">Masculine</option>
-            <option value="F">Femenine</option>
-        </select>
+    <div class="row">
+        <div class="col">
+            <label>Membership Since:</label>
+            <input asp-for="MembershipSince" class="form-control" readonly />
+        </div>
+
+        <div class="col">
+            <label>Student:</label>
+            <select asp-for="Student" class="form-control" readonly>
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label>Genre:</label>
+            <select asp-for="Genre" class="form-control" readonly>
+                <option value="M">Masculine</option>
+                <option value="F">Femenine</option>
+            </select>
+        </div>
     </div>
-</div>
 
 
-<div class="row">
-    <div class="col">
-        <label>Created:</label>
-        <input asp-for="CreatedAt" class="form-control" readonly />
+    <div class="row">
+        <div class="col">
+            <label>Created:</label>
+            <input asp-for="CreatedAt" class="form-control" readonly />
+        </div>
+
+        <div class="col">
+            <label>Last Update:</label>
+            <input asp-for="UpdatedAt" class="form-control" readonly />
+        </div>
     </div>
 
-    <div class="col">
-        <label>Last Update:</label>
-        <input asp-for="UpdatedAt" class="form-control" readonly />
+
+    <br>
+    <div class=" col-12">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
-</div>
+}
 
+else
+{
+    <div class="alert alert-warning" role="alert">
+        <h1>You need to be logged in to see this content</h1>
+    </div>
 
-<br>
-<div class=" col-12">
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-</div>
+}

@@ -12,6 +12,9 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <body>
 
@@ -26,16 +29,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
-
-                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Book</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">List</a>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Create">Create</a>
-                    </div>
-                </li>
-
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Book</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">List</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Create">Create</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <a class="nav-link" role="button" aria-expanded="false" style="cursor:no-drop;">Book</a>
+                }
 
 
                 <li class="nav-item dropdown">
@@ -47,15 +55,20 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Customer</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">List</a>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Customer"
-                            asp-action="Create">Create</a>
-                    </div>
-                </li>
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Customer</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">List</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer"
+                                asp-action="Create">Create</a>
+                        </div>
+                    </li>
+                }
 
 
                 <li class="nav-item dropdown">
@@ -68,6 +81,23 @@
                             asp-action="Create">Create</a>
                     </div>
                 </li>
+
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">User Profile</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link text-dark" href="/Identity/Account/Manage/Email">Change eMail</a>
+                            <a class="nav-link text-dark" href="/Identity/Account/Manage/SetPassword">Change Password</a>
+                           
+                        </div>
+                    </li>
+                }
+
+
                 <partial name="_LoginPartial" />
             </ul>
 

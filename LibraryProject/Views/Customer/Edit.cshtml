@@ -1,6 +1,13 @@
 @model LibraryManagement.ViewModel.CustomerViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
+
+@if (SignInManager.IsSignedIn(User))
+{
 <h2>Edit: @Model.FirstName @Model.LastName</h2>
+
 
 
 <form asp-action="Edit" method="post">
@@ -89,3 +96,12 @@
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </form>
+}
+
+else
+{
+    <div class="alert alert-warning" role="alert">
+        <h1>You need to be logged in to see this content</h1>
+    </div>
+
+}
