@@ -18,6 +18,8 @@ This is a project for university.
 11. Create and Edit libraries branch
 12. Details of Libraries branch
 13. Seach (Only for books)
+14. Social Network Login
+15. Authentication
 
 
 ## Prerequisites
@@ -87,20 +89,24 @@ The application will be accessible at `https://localhost:7243/` by default.
 
 ## Demo Pictures
 
-<img src="/LibraryProject/assets/img/01.png"/>
-<img src="/LibraryProject/assets/img/02.png"/>
-<img src="/LibraryProject/assets/img/03.png"/>
-<img src="/LibraryProject/assets/img/04.png"/>
-<img src="/LibraryProject/assets/img/05.png"/>
-<img src="/LibraryProject/assets/img/06.png"/>
-<img src="/LibraryProject/assets/img/07.png"/>
-<img src="/LibraryProject/assets/img/08.png"/>
-<img src="/LibraryProject/assets/img/09.png"/>
-<img src="/LibraryProject/assets/img/10.png"/>
-<img src="/LibraryProject/assets/img/11.png"/>
-<img src="/LibraryProject/assets/img/12.png"/>
-<img src="/LibraryProject/assets/img/13.png"/>
-
+<img src="./LibraryProject/assets/img/01.png"/>
+<img src="./LibraryProject/assets/img/02.png"/>
+<img src="./LibraryProject/assets/img/03.png"/>
+<img src="./LibraryProject/assets/img/04.png"/>
+<img src="./LibraryProject/assets/img/05.png"/>
+<img src="./LibraryProject/assets/img/06.png"/>
+<img src="./LibraryProject/assets/img/07.png"/>
+<img src="./LibraryProject/assets/img/08.png"/>
+<img src="./LibraryProject/assets/img/09.png"/>
+<img src="./LibraryProject/assets/img/10.png"/>
+<img src="./LibraryProject/assets/img/11.png"/>
+<img src="./LibraryProject/assets/img/12.png"/>
+<img src="./LibraryProject/assets/img/13.png"/>
+<img src="./LibraryProject/assets/img/14.png"/>
+<img src="./LibraryProject/assets/img/15.png"/>
+<img src="./LibraryProject/assets/img/16.png"/>
+<img src="./LibraryProject/assets/img/17.png"/>
+ 
 
 ## Contributing
 Feel free to contribute to the development of this project by opening issues or pull requests. Your feedback is highly appreciated!

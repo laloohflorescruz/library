@@ -96,13 +96,13 @@ namespace LibraryProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             var book = await _bookRepository.GetByIdAsync(id.Value);
             if (book == null)
             {
-                return NotFound();
+                throw new ArgumentException($"Book with ID {id} not found");
             }
 
             var bookViewModel = new BookViewModel
@@ -126,7 +126,7 @@ namespace LibraryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, BookViewModel vm)
         {
-            if (id != vm.BookId)
+             if (id == 0)
             {
                 return NotFound();
             }
@@ -135,7 +135,7 @@ namespace LibraryProject.Controllers
             {
                 var book = new Book
                 {
-                    BookId = vm.BookId,
+                    BookId = id,
                     Title = vm.Title,
                     ISBN = vm.ISBN,
                     PublicationDate = vm.PublicationDate,

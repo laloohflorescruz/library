@@ -87,13 +87,13 @@ namespace LibraryProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             var branch = await _libRep.GetByIdAsync(id.Value);
             if (branch == null)
             {
-                return NotFound();
+                throw new ArgumentException($"Branch with ID {id} not found");
             }
 
             var viewModel = new LibraryBranchViewModel
@@ -116,7 +116,7 @@ namespace LibraryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, LibraryBranchViewModel viewModel)
         {
-            if (id != viewModel.LibraryBranchId)
+              if (id == 0)
             {
                 return NotFound();
             }
@@ -125,7 +125,7 @@ namespace LibraryProject.Controllers
             {
                 var branch = new LibraryBranch
                 {
-                    LibraryBranchId = viewModel.LibraryBranchId,
+                    LibraryBranchId = id,
                     BranchName = viewModel.BranchName,
                     ZipCode = viewModel.ZipCode,
                     Address = viewModel.Address,

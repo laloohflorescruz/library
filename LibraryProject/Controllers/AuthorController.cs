@@ -79,13 +79,13 @@ namespace LibraryProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             var author = await _authorRepository.GetByIdAsync(id.Value);
             if (author == null)
             {
-                return NotFound();
+                throw new ArgumentException($"Author with ID {id} not found");
             }
 
             var authorViewModel = new AuthorViewModel
@@ -105,7 +105,7 @@ namespace LibraryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, AuthorViewModel vm)
         {
-            if (id != vm.AuthorId)
+             if (id == 0)
             {
                 return NotFound();
             }
@@ -114,7 +114,7 @@ namespace LibraryProject.Controllers
             {
                 var author = new Author
                 {
-                    AuthorId = vm.AuthorId,
+                    AuthorId = id,
                     LastName = vm.LastName,
                     FirstName = vm.FirstName,
                     BirthPlace = vm.BirthPlace,

@@ -28,10 +28,23 @@ namespace LibraryManagement.Repo
             _dbSet.Add(entity);
         }
 
-        public void Update(T entity)
+        public async void Update(T entity)
         {
-            _dbSet.Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
+             if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            try
+            {
+                _dbContext.Update(entity);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new InvalidOperationException("Error while saving changes", ex);
+            }
+
         }
 
         // public void Remove(T entity)

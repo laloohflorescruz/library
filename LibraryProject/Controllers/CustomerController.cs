@@ -67,7 +67,7 @@ namespace LibraryManagement.Controllers
             {
                 var customer = new Customer
                 {
-                    CustomerId = viewModel.CustomerId,
+                    // CustomerId = viewModel.CustomerId,
                     FirstName = viewModel.FirstName,
                     LastName = viewModel.LastName,
                     Birthday = viewModel.Birthday,
@@ -91,14 +91,16 @@ namespace LibraryManagement.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             var customer = await _repo.GetByIdAsync(id.Value);
+
             if (customer == null)
             {
-                return NotFound();
+                throw new ArgumentException($"Customer with ID {id} not found");
             }
+
 
             var viewModel = new CustomerViewModel
             {
@@ -122,7 +124,7 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CustomerViewModel viewModel)
         {
-            if (id != viewModel.CustomerId)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -131,7 +133,7 @@ namespace LibraryManagement.Controllers
             {
                 var customer = new Customer
                 {
-                    CustomerId = viewModel.CustomerId,
+                    CustomerId = id,
                     FirstName = viewModel.FirstName,
                     LastName = viewModel.LastName,
                     Birthday = viewModel.Birthday,
@@ -147,6 +149,7 @@ namespace LibraryManagement.Controllers
 
                 _repo.Update(customer);
                 await _repo.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
