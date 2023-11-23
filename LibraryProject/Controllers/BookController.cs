@@ -1,6 +1,7 @@
 using LibraryManagement.Models;
 using LibraryManagement.Repo;
 using LibraryManagement.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -21,6 +22,7 @@ namespace LibraryProject.Controllers
             _libraryBranchRepository = libraryBranchRepository;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)//Defaul value to be shown on Index = 10
         {
             var books = await _bookRepository.GetAllAsync();
@@ -65,6 +67,7 @@ namespace LibraryProject.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(BookViewModel vm)
         {
@@ -91,7 +94,7 @@ namespace LibraryProject.Controllers
             ViewBag.LibraryItems = await GetLibraryAsync();
             return View(vm);
         }
-
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

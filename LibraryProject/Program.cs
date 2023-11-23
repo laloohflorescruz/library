@@ -3,6 +3,7 @@ using LibraryManagement.Models;
 using LibraryManagement.Repo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +80,15 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.UseStatusCodePages(async statusCodeContext =>
+{
+    statusCodeContext.HttpContext.Response.ContentType = "text/html";
+    await statusCodeContext.HttpContext.Response.WriteAsync(
+    $"Status Code Page: {statusCodeContext.HttpContext.Response.StatusCode}");
+});
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

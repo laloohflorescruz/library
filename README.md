@@ -82,6 +82,9 @@ The application will be accessible at `https://localhost:7243/` by default.
   - **Startup.cs** - Configures services and the app's request pipeline.
 
 
+## Social Network
+If you want to use any social network like authentication, just click on which you want you prefer. Be use you insert your email registred on that social network.
+
 
 ## You can see a live demo here
 [Here](https://www.eduardoflores.name/portfolio/LibraryManagement/)
