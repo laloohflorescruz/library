@@ -67,9 +67,9 @@ namespace LibraryProject.Controllers
                     NobelPrize = vm.NobelPrize,
                     CreatedAt = DateTime.Now,
                 };
+
                 _authorRepository.Add(author);
                 await _authorRepository.SaveAsync();
-
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -83,6 +83,7 @@ namespace LibraryProject.Controllers
             }
 
             var author = await _authorRepository.GetByIdAsync(id.Value);
+            
             if (author == null)
             {
                 throw new ArgumentException($"Author with ID {id} not found");
@@ -107,7 +108,7 @@ namespace LibraryProject.Controllers
         {
              if (id == 0)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             if (ModelState.IsValid)

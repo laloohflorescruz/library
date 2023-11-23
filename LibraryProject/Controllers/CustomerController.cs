@@ -126,7 +126,7 @@ namespace LibraryManagement.Controllers
         {
             if (id == 0)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             if (ModelState.IsValid)

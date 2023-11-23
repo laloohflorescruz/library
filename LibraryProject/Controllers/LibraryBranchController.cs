@@ -91,7 +91,8 @@ namespace LibraryProject.Controllers
             }
 
             var branch = await _libRep.GetByIdAsync(id.Value);
-            if (branch == null)
+           
+           if (branch == null)
             {
                 throw new ArgumentException($"Branch with ID {id} not found");
             }
@@ -118,7 +119,7 @@ namespace LibraryProject.Controllers
         {
               if (id == 0)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             if (ModelState.IsValid)

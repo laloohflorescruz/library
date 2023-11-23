@@ -100,6 +100,7 @@ namespace LibraryProject.Controllers
             }
 
             var book = await _bookRepository.GetByIdAsync(id.Value);
+           
             if (book == null)
             {
                 throw new ArgumentException($"Book with ID {id} not found");
@@ -128,7 +129,7 @@ namespace LibraryProject.Controllers
         {
              if (id == 0)
             {
-                return NotFound();
+                throw new ArgumentException("ID cannot be null or not found");
             }
 
             if (ModelState.IsValid)
